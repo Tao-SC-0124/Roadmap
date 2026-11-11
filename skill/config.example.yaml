@@ -2,13 +2,12 @@
 # 复制为 config.yaml 后按需修改；不要改研究规则的默认值，除非你明确知道后果。
 
 timezone: Asia/Shanghai
-push_times:
-  - "08:00"
-  - "09:00"
-  - "10:00"
-
-# 每次运行最多产出几张卡；建议 1，不要为凑数调大
+# 按需推卡：不设固定时间；用户请求时跑一张，最多 1 张
+run_mode: on_demand
 cards_per_run: 1
+# 用户已 init 日期目录则直接用；没有则自动创建
+# 本工作区用 正式卡/YYYYMMDD/；分发版默认 outputs/YYYY-MM-DD/
+auto_create_date_folder: true
 
 # 推送正文末尾是否保留 take/pass 表态请求
 # 本 skill 不保存回复，也不维护跟踪状态；这句话供外部跟踪机制消费
@@ -37,8 +36,8 @@ screening:
   # 相对跌幅基准：行业指数优先；不可用用沪深300/中证全指
   relative_benchmarks: ["industry", "csi300"]
 
-# 09:00/10:00 无新增合格标的时的输出
-# report  = 「本轮全市场未检索到新的符合准入产业敞口。」
+# 同日重复请求且无新增时的输出
+# report  = 「本轮未检索到新的符合准入产业敞口。」
 # silence = 只输出「暂无值得关注信息」
 no_new_policy: report
 

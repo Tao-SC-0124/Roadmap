@@ -1,6 +1,6 @@
 ---
 name: industry-exposure-card
-description: 每日产业敞口信息卡技能。围绕明确产业敞口研究 A 股公司，先给产业主升判断与经营下滑归因，从终端反推受益公司与利润环节，逐份检查技术迭代重要性，再统一估计敞口纯度、判定五关与 C、按固定赔率公式算 B，生成单文件 HTML 产业信息卡。用于每天 08:00／09:00／10:00 定时推送；daily_push 必须先过 60/120/250 交易日跌幅榜与 90 天 S/A 级节点共振；硬准入为未确认杀逻辑、B≥3、C≥3、B＋C≥7，无合格标的时明确报告全市场未检索到合适标的。
+description: 产业敞口信息卡技能（按需推卡）。围绕明确产业敞口研究 A 股公司，先给产业主升判断与经营下滑归因，从终端反推受益公司与利润环节，逐份检查技术迭代重要性，再统一估计敞口纯度、判定五关与 C、按固定赔率公式算 B，生成单文件 HTML 产业信息卡。用于用户要求时按需推卡，不规定时间；daily_push 必须先过 60/120/250 交易日跌幅榜与 90 天 S/A 级节点共振；硬准入为未确认杀逻辑、B≥3、C≥3、B＋C≥7，无合格标的时明确报告全市场未检索到合适标的。
 metadata:
   version: v2.3.0
   status: active
@@ -9,7 +9,7 @@ metadata:
   timezone: Asia/Shanghai
 ---
 
-# 产业信息卡 Version2.3：每日推送执行入口
+# 产业信息卡 Version2.3：按需推送执行入口
 
 本文件是入口。执行前先读本文件，再按需读 `references/`；**每次交付前必须读 `references/preflight-checklist.md`**。业务基准为 `references/original/信息卡-Version2.3-执行规范.md`；执行细则以 `references/execution-spec-checklist.md`、`references/scoring-and-timeline.md`、`references/render-and-naming.md`、`references/screening-and-resonance.md` 为准。V2.3 与 V2.2 细则冲突时，按本文件「规则优先级」处理。
 
@@ -30,29 +30,27 @@ metadata:
 
 | 模式 | 触发 | 是否允许出未过准入的卡 | 交付 |
 | --- | --- | --- | --- |
-| `daily_push` | 08:00／09:00／10:00 定时任务，无用户点名 | **不允许**。未过线只在内部记录，不出卡、不进推送 | 单文件 HTML＋推送正文 |
+| `daily_push` | 用户要求时按需运行，不设固定时间 | **不允许**。未过线只在内部记录，不出卡、不进推送 | 单文件 HTML＋推送正文 |
 | `named_research` | 用户点名个股或敞口 | 允许，但必须写明未过哪一项，不得称已入池 | 单文件 HTML（通常不出 PNG） |
 
 `daily_push` 是默认模式；本包主要服务于它。`named_research` 沿用同一套规范，只是准入可以不过线。
 
-## 3. 每日三档推送（08:00／09:00／10:00）
+## 3. 按需推卡（daily_push）
 
-**时区：Asia/Shanghai。每次运行只产出一张卡；三次运行相互独立，不得复用同一敞口／主标的。** 如果执行环境只能调度一次，改为 08:00 主扫描，09:00／10:00 增量扫描；不要在一次运行里硬凑三张卡。
+**不规定时间。用户要求时才运行；每次请求最多出 1 张卡。** 不自动按 08:00／09:00／10:00 跑。
 
-| 班次 | 职责 | 无合格标的时 |
-| --- | --- | --- |
-| 08:00 主扫描 | 全市场重新检索，建立当日候选池，最多推 1 张 | `本轮全市场未检索到符合准入的产业敞口。`＋最接近的被否决候选（≤3 个） |
-| 09:00 增量 | 只找与 08:00 **不同**的合格敞口；读 08:00 输出与 `{{state_dir}}/pushed-index.json`（本工作区 `报告评审记录/.state/pushed-index.json`） | `本轮全市场未检索到新的符合准入产业敞口。`＋08:00 已推标的（如有） |
-| 10:00 增量 | 同 09:00，不得重复 08:00／09:00 | 同 09:00 |
-
-若配置 `no_new_policy: silence`，09:00／10:00 无新增时只输出一行：`暂无值得关注信息`。默认 `report`，因为用户要求明确知道全市场有没有合适标的。
-
-**去重**：同一「敞口＋主标的」在 `dedupe_days`（默认 20 个自然日）内不重复推送；出现实质新事件需要更新时，标题与正文必须写「更新」并说明变化，不能假装新推。去重索引只是幂等记录，不是跟踪机制。
+- **日期目录**：优先用用户已 init 的 `正式卡/YYYYMMDD/`；如果用户建的是 `正式卡/YYYY-MM-DD/`，直接用；两者都没有，自动创建 `正式卡/YYYYMMDD/`。不要把卡写到别处。
+- **每次请求**：只跑一张；同日可以多次请求，但不得重复同一「敞口＋主标的」；先读 `{{state_dir}}/pushed-index.json`（本工作区 `报告评审记录/.state/pushed-index.json`）。
+- **同日重复请求**：先找与今日已推不同的合格敞口；没有新的合格标的时，`本轮未检索到新的符合准入产业敞口。`＋今日已推标的；若配置 `no_new_policy: silence`，只输出 `暂无值得关注信息`。
+- **首次请求无合格**：`本轮全市场未检索到符合准入的产业敞口。`＋最多 3 个最接近的被否决候选。
+- **输出文件**：`push-HHMM.txt`／`run-HHMM.md` 按请求时间命名；同一分钟重复加 `-02`。
+- **去重**：同一「敞口＋主标的」在 `dedupe_days`（默认 20 个自然日）内不重复；出现实质新事件需要更新时，标「更新」并说明变化。
+- **PDF**：默认只出 HTML；用户说“顺便转 PDF”时再运行 `--formal`，输出 `待打印PDF/YYYYMMDD/`。
 
 ## 4. 每次运行的固定顺序
 
 1. **读环境**：读本文件、`references/daily-push.md`、`references/preflight-checklist.md`、`references/scoring-and-timeline.md`；读 `config.yaml`（若不存在则读 `config.example.yaml`）与 `{{state_dir}}/pushed-index.json`（若存在；本工作区 `报告评审记录/.state/pushed-index.json`）。
-2. **锁报告基准**：报告日、取价日（报告日前最近一个已收盘交易日）、班次、模式、输出目录。90 天＝报告日及后 89 个自然日，实算。
+2. **锁报告基准**：请求时间、报告日、取价日（报告日前最近一个已收盘交易日）、模式、输出目录。90 天＝报告日及后 89 个自然日，实算。
 3. **交易日历核对**：按沪深交易所公告核对报告日、取价日与 90 天窗口内的交易日；**不读取、不依赖任何外部金融日历仓库**。取价日回退到最近一个已收盘交易日；无法确认时写「未取得」，不推测。
 4. **建候选池**：先从 **60／120／250 交易日跌幅榜**建池，逐只算区间涨跌幅＋最大回撤；再定义敞口、查清下跌原因；再建 90 天节点地图并分级；只保留「跌幅榜＋S/A 级节点」共振候选。记录漏斗：跌幅榜候选 N → 敞口可定义 M → 下跌原因可查 L → S/A 节点 K → 纯度可算 J → 过准入 P。详见 `references/screening-and-resonance.md`。
 5. **产业四件事（先做完再打分）**：①开篇产业主升命题（驱动／成立条件／主要矛盾／主标的承接）；②经营下滑归因（下降读数→原因→对主张的影响→证据/缺口）；③终端反推（份额→制造主体→供应关系→本敞口收入/利润承接，并比较利润环节）；④技术重要性判定（触发才展开，不触发就删除模块）。
@@ -126,7 +124,7 @@ metadata:
 - **head**：`<title>` 与 `<meta name="description">` 必须填真实内容，不得留占位符或空值。title＝`产业信息卡 YYYY-MM-DD｜敞口 · 公司 代码`；meta description＝1—2 句，含报告日、标的、B＋C 与是否过线。
 - **状态行**：在 `<footer>` 前单列一行 `<p class="note track-status">推送状态：新推；本 skill 不维护长期跟踪，后续跟踪由外部机制承接。</p>`。
 - **页脚**：只留 `价格参照由研究员主观选择，技术面由操盘手核验`。
-- **不出 PNG**：每日推送只交付 HTML；用户点名要图时才按 `render-and-naming.md` 出 PNG。
+- **不出 PNG**：daily_push只交付 HTML；用户点名要图时才按 `render-and-naming.md` 出 PNG。
 - **打印 PDF**：本 skill 只出 HTML；打印副本由统一工作区的 `报告评审记录/scripts/convert-any.sh --formal` 处理（读 `正式卡/YYYYMMDD/`，写 `待打印PDF/YYYYMMDD/`；V2.2/V2.3 卡自动六页，其他 HTML 通用 A4 也 ≤6 页），不在出卡流程里重排。
 - **不能写文件时**：在回复中直接返回完整 HTML（代码块）与推送正文，说明「未落盘」；不得截断 HTML，不得只给摘要。
 - **卡片内不写**：免责声明、改版史、「原报告／原卡／上一版」、概率列、先验、胜率、take／pass 状态、持仓、聊天背景。
@@ -156,7 +154,7 @@ python3 scripts/validate_card.py "{{output_dir}}/YYYYMMDD/<文件名>.html"
 
 ## 10. 失败、降级与无合格标的
 
-- **没有合格敞口**：如实报告，不得下调标准。08:00 用 `本轮全市场未检索到符合准入的产业敞口。`；09:00／10:00 用 `本轮全市场未检索到新的符合准入产业敞口。`。可列最多 3 个最接近的被否决候选及理由码（C 不足／B 锚点未取得／B＋C<7／已确认杀逻辑／纯度不可推算／证据不足／数据源不可用），正文仍≤5 行。
+- **没有合格敞口**：如实报告，不得下调标准。首次请求用 `本轮全市场未检索到符合准入的产业敞口。`；同日重复请求且无新增用 `本轮未检索到新的符合准入产业敞口。`。可列最多 3 个最接近的被否决候选及理由码（C 不足／B 锚点未取得／B＋C<7／已确认杀逻辑／纯度不可推算／证据不足／数据源不可用），正文仍≤5 行。
 - **跌幅榜有候选、但 90 天内没有 S/A 级节点**：不出卡；推送 `本轮全市场未检索到「跌幅榜＋90天现象级节点」共振的合格敞口。`＋最多 3 个被否决候选，注明「无S/A节点」。
 - **有 S/A 节点、但不在跌幅榜或 B/C 不过线**：不出卡；推送 `本轮有节点候选，但没有跌幅榜与赔率同时成立的敞口。`
 - **跌幅与节点不共振**：只进内部观察，不出卡、不推送；`named_research` 可呈现，但须标「非 daily_push」。
@@ -186,7 +184,7 @@ python3 scripts/validate_card.py "{{output_dir}}/YYYYMMDD/<文件名>.html"
 
 | 文件 | 用途 |
 | --- | --- |
-| `references/daily-push.md` | 每日三档推送的完整编排、候选池口径、输出格式、失败处理 |
+| `references/daily-push.md` | 按需推卡的完整编排、候选池口径、输出格式、失败处理 |
 | `references/screening-and-resonance.md` | 60/120/250 交易日跌幅榜、下跌原因、S/A/B/C 节点分级、共振排序、出货窗口 |
 | `references/preflight-checklist.md` | 交付前阻断项清单（每次必读） |
 | `references/workbuddy-setup.md` | 上传、定时任务提示词、环境与权限、测试步骤 |
@@ -194,11 +192,11 @@ python3 scripts/validate_card.py "{{output_dir}}/YYYYMMDD/<文件名>.html"
 | `references/research-perspective.md` | 用户的产业景气／时代共振、事件驱动、交易价值与研究口味 |
 | `references/scoring-and-timeline.md` | B／C／R、锚点、节点、时间轴（现行执行口径） |
 | `references/execution-spec-checklist.md` | 完整硬性检查表（§0.5—§26；政策见 §25，锚点见 §26） |
-| `references/render-and-naming.md` | 版式、视觉、命名、出图（每日推送不出 PNG） |
+| `references/render-and-naming.md` | 版式、视觉、命名、出图（daily_push不出 PNG） |
 | `references/original/` | 原始规范、完整导出、旧 skill 提示词，供溯源 |
 | `assets/skeleton-template.html` | 唯一 HTML 骨架 |
 | `assets/examples/` | 3 份历史满意卡，仅版式参考 |
-| `assets/templates/大节点卡模板-非每日信息卡.html` | 另一种卡型，**不属于**每日本技能流程 |
+| `assets/templates/大节点卡模板-非每日信息卡.html` | 另一种卡型，**不属于**本技能流程 |
 | `state/pushed-index.example.json` | 去重索引示例 |
 | `scripts/validate_card.py` | 单卡结构与一致性校验（可选） |
-| `config.example.yaml` | 班次、去重、take/pass、锚点档位等配置示例 |
+| `config.example.yaml` | 按需运行、去重、take/pass、锚点档位等配置示例 |

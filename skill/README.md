@@ -2,7 +2,7 @@
 
 版本：v2.3.0｜更新：2026-11-11｜时区：Asia/Shanghai
 
-这是一个可上传的 Agent Skill 包：每天 08:00／09:00／10:00 各运行一次，围绕 A 股产业敞口生成单文件 HTML 产业信息卡，并输出一段不超过 5 行的推送正文。没有合格标的时，明确报告「全市场未检索到符合准入的产业敞口」，不降标准凑数。
+这是一个可上传的 Agent Skill 包：用户要求时按需运行，每次生成一张单文件 HTML 产业信息卡，并输出一段不超过 5 行的推送正文。不规定时间，不要求定时任务。没有合格标的时，明确报告「全市场未检索到符合准入的产业敞口」，不降标准凑数。
 
 > **统一工作区（本机）**：根目录 `config.yaml` 已把 `output_dir` 设为 `报告评审记录`、日期子目录设为 `YYYYMMDD`；出卡后运行 `报告评审记录/scripts/convert-any.sh --dir 报告评审记录/YYYYMMDD` 转 PDF。分发版仍默认 `outputs/YYYY-MM-DD`。
 
@@ -10,9 +10,9 @@
 
 1. 上传 `industry-exposure-card-skill-v2.3.0.zip` 到 Workbuddy 的 Skill／Agent 管理页。
 2. 确认能读到根目录 `SKILL.md`、`references/`、`assets/skeleton-template.html`。
-3. 按 `references/workbuddy-setup.md` §3 建三个定时任务（08:00／09:00／10:00），把里面的提示词原样粘贴。
-4. 先手动跑一次 08:00，检查 HTML 能打开、推送正文≤5 行、`{{` 残留为 0。
-5. 同一天跑 09:00／10:00，确认不会重复 08:00 的标的。
+3. 按 `references/workbuddy-setup.md` §3 的“按需推卡提示词”手动触发一次。
+4. 检查 HTML 能打开、推送正文≤5 行、`{{` 残留为 0；同一天再请求一次，确认不会重复今日已推标的。
+5. 定时任务不是必需；如果需要，按 `workbuddy-setup.md` §3 末尾的可选说明自行挂定时器。
 
 ## 这个包解决什么
 
@@ -25,12 +25,12 @@
 
 ```
 industry-exposure-card/
-├── SKILL.md                          # 入口：角色、边界、每日流程、硬规则
+├── SKILL.md                          # 入口：角色、边界、按需流程、硬规则
 ├── README.md                         # 本文件
 ├── manifest.json                     # 机器可读的包元数据
-├── config.example.yaml               # 班次、去重、take/pass、锚点档位
+├── config.example.yaml               # 按需运行、去重、take/pass、锚点档位
 ├── references/
-│   ├── daily-push.md                 # 每日三班编排、候选池、推送文案、失败处理
+│   ├── daily-push.md                 # 按需推卡编排、候选池、推送文案、失败处理
 │   ├── screening-and-resonance.md    # 60/120/250 交易日跌幅榜、节点分级、共振、出货窗口
 │   ├── preflight-checklist.md        # 交付前阻断项（每次必读）
 │   ├── workbuddy-setup.md            # 上传、定时任务提示词、测试、排错

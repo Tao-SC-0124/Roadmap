@@ -1,13 +1,12 @@
 # 产业信息卡统一工作区配置（本地）
-# 规则默认值不要随意改；这里只负责本机路径与班次。
+# 规则默认值不要随意改；这里只负责本机路径与按需配置。
 
 timezone: Asia/Shanghai
-push_times:
-  - "08:00"
-  - "09:00"
-  - "10:00"
-
+# 按需推卡：不设固定时间；用户请求时跑一张，最多 1 张
+run_mode: on_demand
 cards_per_run: 1
+# 用户已 init 日期目录则直接用；没有则自动创建 正式卡/YYYYMMDD/
+auto_create_date_folder: true
 take_pass_prompt: true
 dedupe_days: 20
 
@@ -24,7 +23,7 @@ screening:
   min_avg_turnover: 0.0
   relative_benchmarks: ["industry", "csi300"]
 
-no_new_policy: report
+no_new_policy: report  # 同日重复请求且无新增时：report 报「未检索到新的」；silence 只输出「暂无值得关注信息」
 anchor_profile: v2_3
 
 # 本工作区：daily push 的 HTML、推送文本、运行底稿、PDF 都在

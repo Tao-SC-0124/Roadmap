@@ -5,7 +5,7 @@
   "entrypoint": "SKILL.md",
   "language": "zh-CN",
   "timezone": "Asia/Shanghai",
-  "description": "每日产业敞口信息卡：daily_push先过60/120/250交易日跌幅榜与90天S/A级节点共振，再按B+C硬准入筛选A股主标的，生成单文件HTML；无合格标的时报告全市场未检索到合适标的。",
+  "description": "按需产业敞口信息卡：用户要求时运行，daily_push先过60/120/250交易日跌幅榜与90天S/A级节点共振，再按B+C硬准入筛选A股主标的，生成单文件HTML；无合格标的时报告全市场未检索到合适标的。",
   "modes": [
     "daily_push",
     "named_research"
@@ -37,16 +37,13 @@
       "purity"
     ]
   },
-  "schedule": [
-    "08:00",
-    "09:00",
-    "10:00"
-  ],
+  "schedule": [],
   "outputs": {
-    "card": "outputs/YYYY-MM-DD/<exposure>-<company>-产业信息卡-YYYY-MM-DD.html",
-    "push": "outputs/YYYY-MM-DD/push-HHMM.txt",
-    "run_log": "outputs/YYYY-MM-DD/run-HHMM.md",
-    "dedupe": "outputs/state/pushed-index.json"
+    "card": "正式卡/YYYYMMDD/<exposure>-<company>-产业信息卡-YYYY-MM-DD.html",
+    "push": "正式卡/YYYYMMDD/push-HHMM.txt",
+    "run_log": "正式卡/YYYYMMDD/run-HHMM.md",
+    "pdf": "待打印PDF/YYYYMMDD/",
+    "dedupe": "报告评审记录/.state/pushed-index.json"
   },
   "files": {
     "skill": "SKILL.md",
@@ -55,5 +52,6 @@
     "validator": "scripts/validate_card.py",
     "screening": "references/screening-and-resonance.md",
     "spec": "references/original/信息卡-Version2.3-执行规范.md"
-  }
+  },
+  "run_mode": "on_demand"
 }
