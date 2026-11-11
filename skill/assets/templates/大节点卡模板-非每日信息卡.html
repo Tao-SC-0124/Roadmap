@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>18 只·大节点卡｜未来 90 天催化时间轴与 FOMO 分（2026-11-02 收盘后）</title>
+<meta name="description" content="18 只 A 股未来 90 天催化时间轴：一只一行、按月份分栏，节点分三类——已确认（实心圆，公司或权威来源已公布时间）、时间窗口（实心菱形，事件有依据但日期未确认）、观察假设（空心菱形，需后续证据验证），形状与颜色区分并附图例。轴下保留完整主表（标的、最近节点、日期、以 2026-11-02 为 D0 的 T+N、节点性质、节点类型、乐观机制、FOMO 分、五要素小分、次一节点）、按 FOMO 排序的简表与缺口栏，深色底，420px 窄屏与桌面均可读。">
+<style>
+:root{
+  --bg:#0b0d10; --panel:#12161b; --panel2:#161b21; --line:#242c34; --line2:#1c242c;
+  --ink:#e9e6e1; --ink2:#a9b0b8; --ink3:#79828c;
+  --amber:#f2c078; --orange:#d97742; --hot:#e08a4f;
+  --okc:#f2c078; --winc:#d97742; --asmc:#d97742;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:16px 12px 44px}
+h1{font-size:20px;line-height:1.35;margin:6px 0 6px;letter-spacing:.4px}
+h2{font-size:14.5px;margin:28px 0 10px;color:var(--ink);font-weight:600;letter-spacing:.6px}
+h2 i{display:inline-block;width:3px;height:13px;background:var(--orange);margin-right:8px;border-radius:2px;vertical-align:-1px}
+.sub{color:var(--ink3);font-size:12px;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 0}
+.meta span{background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:11px;color:var(--ink2)}
+.lead{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 14px 8px;margin:14px 0 0}
+.lead p{margin:0 0 10px;font-size:13px;line-height:1.65;padding-left:13px;position:relative;color:#d7d3cd}
+.lead p::before{content:"";position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--orange)}
+.lead b{color:var(--amber);font-weight:600}
+
+/* ============ timeline (weekly grid) ============ */
+.tl{background:linear-gradient(180deg,#141a20,#11151a);border:1px solid var(--line);border-radius:14px;padding:14px 10px 10px;margin:0 0 10px}
+.lg{display:flex;flex-wrap:wrap;gap:14px;margin:0 0 10px 2px;font-size:11.5px;color:var(--ink2)}
+.lg span{display:inline-flex;align-items:center;gap:6px}
+.shp{display:inline-block;width:9px;height:9px;flex:0 0 9px}
+.shp.c{background:var(--okc);border-radius:50%}
+.shp.w{background:var(--winc);transform:rotate(45deg)}
+.shp.a{background:transparent;border:1.5px solid var(--asmc);transform:rotate(45deg)}
+.tlhint{display:none;font-size:11px;color:var(--ink3);margin:0 0 8px 2px}
+@media(max-width:900px){.tlhint{display:block}}
+.tlwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.tlin{min-width:700px}
+.hrow,.trow{display:flex;align-items:stretch}
+.tname,.hname{position:sticky;left:0;z-index:3;background:#131920;flex:0 0 84px;width:84px}
+.tname{font-size:11px;line-height:1.25;color:var(--ink);padding:26px 4px 0 2px}
+.tname em{display:block;font-style:normal;color:var(--ink3);font-size:9.5px;letter-spacing:.3px}
+.hname{padding:0}
+.tout{flex:0 0 56px;width:56px;font-size:9px;color:var(--ink3);display:flex;align-items:center;padding-left:6px;line-height:1.2;background:#131920}
+.hmid{flex:1 1 auto;min-width:0}
+.mband{display:flex;font-size:9.5px;color:#8d949c;letter-spacing:.4px;margin:0 0 2px}
+.mband span{text-align:center;border-bottom:2px solid #39434e;padding-bottom:2px;white-space:nowrap;overflow:hidden}
+.mband span+span{border-left:2px solid #39434e}
+.wk{position:relative;height:15px}
+.wk span{position:absolute;top:0;transform:translateX(-50%);font-size:9px;color:#8f979f;white-space:nowrap;font-variant-numeric:tabular-nums}
+.track{position:relative;flex:1 1 auto;min-width:0;height:50px;
+  background-image:
+    repeating-linear-gradient(to right,rgba(52,62,72,.9) 0,rgba(52,62,72,.9) 1px,transparent 1px,7.6923077%),
+    linear-gradient(90deg,transparent calc(38.4615% - 1px),#4a5560 calc(38.4615% - 1px),#4a5560 calc(38.4615% + 1px),transparent calc(38.4615% + 1px)),
+    linear-gradient(90deg,transparent calc(69.2308% - 1px),#4a5560 calc(69.2308% - 1px),#4a5560 calc(69.2308% + 1px),transparent calc(69.2308% + 1px));
+}
+.track::before{content:"";position:absolute;left:0;right:0;top:32px;height:1px;background:#2f3842}
+.nd{position:absolute;top:32px;transform:translate(-50%,-50%);z-index:2}
+.nd i{display:block;width:8px;height:8px}
+.nd.okc i{background:var(--okc);border-radius:50%;box-shadow:0 0 0 2px rgba(242,192,120,.14)}
+.nd.winc i{background:var(--winc);transform:rotate(45deg)}
+.nd.asmc i{background:transparent;border:1.5px solid var(--asmc);transform:rotate(45deg);box-sizing:border-box}
+.lb{position:absolute;bottom:100%;margin-bottom:7px;left:50%;transform:translateX(-50%);
+  white-space:nowrap;font-size:9.5px;font-weight:400;color:#bdb9b2;letter-spacing:.2px}
+.lb.l2{margin-bottom:21px;color:#a9b0b8}
+.lb.r{left:auto;right:4px;transform:none;text-align:right}
+.lb.l{left:3px;transform:none}
+.tcap{font-size:11.5px;color:var(--ink3);line-height:1.6;margin:10px 2px 0;padding-top:10px;border-top:1px solid var(--line2)}
+
+/* ============ tables ============ */
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+table{border-collapse:separate;border-spacing:0;width:100%}
+th,td{text-align:left;vertical-align:top;padding:8px 9px;border-bottom:1px solid var(--line2);font-size:12px;color:var(--ink2)}
+thead th{background:#181e25;color:var(--ink3);font-weight:600;font-size:11px;white-space:nowrap;position:sticky;top:0;z-index:3}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:nth-child(even){background:#141920}
+tbody tr:nth-child(even) td.nm{background:#141920}
+#main{min-width:1246px;table-layout:fixed}
+td.nm,input{color:var(--ink)}
+#main td.nm{white-space:nowrap;font-weight:600;color:var(--ink);position:sticky;left:0;background:var(--panel);z-index:2;
+  box-shadow:8px 0 8px -8px rgba(0,0,0,.8)}
+#main th.nm{position:sticky;left:0;background:#181e25;z-index:4}
+td.nm em{display:block;font-weight:400;color:var(--ink3);font-style:normal;font-size:10px;letter-spacing:.4px}
+.dt{white-space:normal;font-variant-numeric:tabular-nums;color:#d7d3cd}
+.tn{white-space:normal;font-variant-numeric:tabular-nums;font-weight:600;color:var(--amber)}
+.chip{display:inline-block;border-radius:5px;padding:1px 6px;font-size:10.5px;white-space:nowrap;border:1px solid transparent}
+.okc.chip{color:#f6d9a8;background:rgba(242,192,120,.12);border-color:rgba(242,192,120,.32)}
+.winc.chip{color:#f0b28c;background:rgba(217,119,66,.14);border-color:rgba(217,119,66,.36)}
+.asmc.chip{color:#c99a7d;background:transparent;border-color:rgba(217,119,66,.5);border-style:dashed}
+.why{min-width:250px;line-height:1.6;color:#a9b0b8}
+.why b{color:var(--amber);font-weight:600}
+.fomo{white-space:nowrap;font-weight:700;font-size:13px;color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{display:block;height:3px;border-radius:2px;background:#232b33;margin-top:4px;width:44px;overflow:hidden}
+.bar i{display:block;height:3px;background:linear-gradient(90deg,var(--orange),var(--amber))}
+.mini{color:var(--ink3);font-size:10.5px;white-space:normal;font-variant-numeric:tabular-nums}
+.sec{min-width:200px;font-size:11.5px;line-height:1.55;color:#a9b0b8}
+.sec b{color:var(--ink);font-weight:600}
+#rank{min-width:640px}
+#rank col.c1{width:34px}#rank col.c2{width:150px}#rank col.c3{width:230px}#rank col.c4{width:100px}
+#rank col.c5{width:56px}
+#rank td,#rank th{padding:7px 10px}
+#rank .r{width:34px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.note{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;font-size:12px;line-height:1.7;color:var(--ink2)}
+.note b{color:var(--ink)}
+.note ul{margin:6px 0 0;padding-left:17px}
+.note li{margin:4px 0}
+.tag{display:inline-block;font-size:10.5px;border:1px solid var(--line);border-radius:4px;padding:0 5px;margin-right:5px;color:var(--ink3)}
+.src{font-size:11px;line-height:1.8;color:#7f8891;word-break:break-all}
+.src b{color:var(--ink2)}
+.hint{display:none;font-size:11px;color:var(--ink3);margin:0 0 6px 2px}
+@media(max-width:900px){.hint{display:block}}
+@media(max-width:640px){
+  .wrap{padding:12px 10px 34px}
+  h1{font-size:17px}
+  .tname,.hname{flex:0 0 64px;width:64px}
+  .tname{font-size:10px;padding-right:2px}
+  .tname em{font-size:8.5px}
+  .tout{flex:0 0 42px;width:42px;font-size:8.5px;padding-left:4px}
+  .lb{font-size:8.5px}
+  .track{height:54px}
+  .track::before{top:34px}
+  .nd{top:34px}
+  .nd i{width:7px;height:7px}
+  .mo{font-size:9px}
+  .lg{font-size:10.5px;gap:10px}
+  .note,.lead p{font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="sub">数据时点：2026-11-02 收盘后</p>
+  <h1>18 只 · 大节点卡<br>未来 90 天谁先动</h1>
+  <div class="meta">
+    <span>时间轴 2026-11-02 → 2027-01-31</span>
+    <span>T+N 以 2026-11-02 为 D0</span>
+    <span>18 只全上轴</span>
+    <span>FOMO 为本卡口径</span>
+  </div>
+
+  <div class="lead">
+    <p>最近一周内只有两只：<b>恩捷股份</b>（11-03 回购进展，已确认，D1）和<b>特变电工</b>（11-03—11-05 国网第五批中标结果，时间窗口，D1—D3）。往后两周，<b>金力永磁</b>（11-10 海关出口快讯，已确认，D8）、<b>歌尔股份</b>与<b>爱玛科技</b>（11-11 双十一收官，时间窗口，D9）、<b>东方电缆</b>（11-16 业绩说明会，已确认，D14）、<b>长鑫科技</b>（11-17 业绩说明会，已确认，D15）。</p>
+    <p>FOMO 最高的三档：<b>金力永磁 8.5</b>（8 天就到、稀土主线关注度高、换手 1.35% 未被炒拥挤）、<b>歌尔股份 8.0</b>（双十一国补核销＋AI 眼镜主线、换手 0.81%），其后 <b>特变电工、圆通速递、东方电缆</b> 7.5 分并列。</p>
+    <p>只有 <b>5 只</b>拿到已确认日期：恩捷、特变（11-16 股东会）、金力（11-10 与 12-08 两张海关时间表）、东方电缆、长鑫。其余 13 只全是时间窗口；<b>6 只</b>（精研、大金、中国卫星、海力、中文在线、先导）90 天内没有公司层面的确定节点，轴尾只挂年报／预告。取不到日期最彻底的是<b>中国卫星</b>——发射任务无公开排期，航展也未确认参展。</p>
+  </div>
+
+  <h2><i></i>未来 90 天催化时间轴</h2>
+  <div class="tl">
+    <div class="lg">
+      <span><i class="shp c"></i>已确认：公司或权威来源已公布事件及时间</span>
+      <span><i class="shp w"></i>时间窗口：事件有依据，具体日期未确认</span>
+      <span><i class="shp a"></i>观察假设：需后续证据验证，不当作确定性催化</span>
+    </div>
+    <p class="tlhint">← 左右滑动看全部 13 周，首列固定不动 →</p>
+    <div class="tlwrap"><div class="tlin">
+      <div class="hrow">
+        <div class="hname"></div>
+        <div class="hmid"><div class="mband"><span style="width:38.4615%">2026 年 11 月</span><span style="width:30.7692%">2026 年 12 月</span><span style="width:30.7692%">2027 年 1 月</span></div><div class="wk"><span style="left:3.846%">11/02</span><span style="left:11.538%">11/09</span><span style="left:19.231%">11/16</span><span style="left:26.923%">11/23</span><span style="left:34.615%">11/30</span><span style="left:42.308%">12/07</span><span style="left:50.000%">12/14</span><span style="left:57.692%">12/21</span><span style="left:65.385%">12/28</span><span style="left:73.077%">01/04</span><span style="left:80.769%">01/11</span><span style="left:88.462%">01/18</span><span style="left:96.154%">01/25</span></div></div>
+        <div class="tout">窗口外</div>
+      </div>
+<div class="trow"><div class="tname">恩捷股份<em>002812</em></div><div class="track"><span class="nd okc" style="left:1.648%"><i></i><b class="lb l">回购</b></span><span class="nd winc" style="left:99.451%"><i></i><b class="lb r">预告</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">特变电工<em>600089</em></div><div class="track"><span class="nd winc" style="left:2.747%"><i></i><b class="lb l2 l">中标</b></span><span class="nd okc" style="left:15.934%"><i></i><b class="lb">股东会</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">金力永磁<em>300748</em></div><div class="track"><span class="nd okc" style="left:9.341%"><i></i><b class="lb">出口快讯</b></span><span class="nd okc" style="left:40.11%"><i></i><b class="lb l2">12月快讯</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">歌尔股份<em>002241</em></div><div class="track"><span class="nd winc" style="left:10.44%"><i></i><b class="lb">双11</b></span><span class="nd asmc" style="left:47.802%"><i></i><b class="lb l2">12月新品</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">爱玛科技<em>603529</em></div><div class="track"><span class="nd winc" style="left:10.44%"><i></i><b class="lb">双11</b></span></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">东方电缆<em>603606</em></div><div class="track"><span class="nd okc" style="left:15.934%"><i></i><b class="lb">说明会</b></span></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">长鑫科技<em>688825</em></div><div class="track"><span class="nd okc" style="left:17.033%"><i></i><b class="lb">说明会</b></span><span class="nd winc" style="left:95.055%"><i></i><b class="lb l2 r">回购·解禁</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">圆通速递<em>600233</em></div><div class="track"><span class="nd winc" style="left:19.231%"><i></i><b class="lb">10月数据</b></span><span class="nd winc" style="left:52.198%"><i></i><b class="lb l2">11月数据</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">中国船舶<em>600150</em></div><div class="track"><span class="nd winc" style="left:25.824%"><i></i><b class="lb">三大指标</b></span></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">恒瑞医药<em>600276</em></div><div class="track"><span class="nd winc" style="left:31.319%"><i></i><b class="lb">目录</b></span><span class="nd winc" style="left:66.484%"><i></i><b class="lb l2">施行</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">巨化股份<em>600160</em></div><div class="track"><span class="nd asmc" style="left:36.813%"><i></i><b class="lb">长协价</b></span><span class="nd winc" style="left:53.297%"><i></i><b class="lb l2">配额核发</b></span><span class="nd winc" style="left:66.484%"><i></i><b class="lb">新年度</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">沪电股份<em>002463</em></div><div class="track"><span class="nd winc" style="left:96.154%"><i></i><b class="lb r">业绩快报</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">海力风电<em>301155</em></div><div class="track"><span class="nd winc" style="left:99.451%"><i></i><b class="lb r">预告</b></span></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">中文在线<em>300364</em></div><div class="track"><span class="nd asmc" style="left:20.33%"><i></i><b class="lb">月榜</b></span><span class="nd winc" style="left:99.451%"><i></i><b class="lb l2 r">预告</b></span></div><div class="tout"></div></div>
+<div class="trow"><div class="tname">中国卫星<em>600118</em></div><div class="track"><span class="nd asmc" style="left:39.011%"><i></i><b class="lb">航展</b></span></div><div class="tout">年报 3/31</div></div>
+<div class="trow"><div class="tname">精研科技<em>300709</em></div><div class="track"><span class="nd asmc" style="left:89.56%"><i></i><b class="lb">折叠屏</b></span></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">大金重工<em>002487</em></div><div class="track"></div><div class="tout">年报 4/30</div></div>
+<div class="trow"><div class="tname">先导智能<em>300450</em></div><div class="track"></div><div class="tout">年报 4/30</div></div>
+    </div></div>
+  </div>
+  <p class="tcap">示意时间轴：最小刻度一周（周一起始），2026-11-02 至 2027-01-31 共 13 格；节点按天落在周格内的相对位置，同一周的不同日期横向分开。月份分组按该周周一起始日所在月划分（第 5 格起于 11-30，故归入 11 月）。除已发生的事件外，标记均为研究观察窗口，不代表公司承诺的公告日期或确定发生的事件。轴尾「窗口外」列放 90 天后才到的年报类节点。</p>
+
+  <h2><i></i>主表：一只一行，按最近节点日期先后</h2>
+  <p class="hint">← 左右滑动看完整 10 列，首列固定 →</p>
+  <div class="scroll">
+  <table id="main">
+    <colgroup>
+      <col style="width:92px"><col style="width:196px"><col style="width:124px"><col style="width:78px">
+      <col style="width:76px"><col style="width:82px"><col style="width:252px"><col style="width:56px">
+      <col style="width:116px"><col style="width:174px">
+    </colgroup>
+    <thead><tr>
+      <th class="nm">标的与代码</th><th>最近节点</th><th>日期</th><th>T+N</th><th>节点性质</th>
+      <th>节点类型</th><th>乐观机制（谁付钱、哪个数字变好）</th><th>FOMO</th><th>五要素小分</th><th>次一节点</th>
+    </tr></thead>
+    <tbody>
+<tr><td class="nm">恩捷股份<em>002812.SZ</em></td><td>回购股份进展公告（10 月进度）</td><td class="dt">2026-11-03</td><td class="tn">D1</td><td><span class="chip okc">已确认</span></td><td>解禁或回购</td><td class="why">公司在 10-29、11-03 连续发回购进展；回购用自有资金，注销部分直接减总股本、抬 EPS。</td><td class="fomo">6.5<span class="bar"><i style="width:65%"></i></span></td><td class="mini">临2 关1.5 门2 差0.5 拥0.5</td><td class="sec"><b>2027-01-31 年度业绩预告</b>（D90，时间窗口：深市主板扭亏须预告，法定 1-31 前）</td></tr>
+<tr><td class="nm">特变电工<em>600089.SH</em></td><td>国网 2026 年第五批输变电设备中标结果公告（四包变压器排序第 1）</td><td class="dt">2026-11-03—11-05</td><td class="tn">D1—D3</td><td><span class="chip winc">时间窗口</span></td><td>订单或中标</td><td class="why">10-29 候选人公示期为 3 日，结束后转正式中标；四包投标报价合计 3.43 亿元，国网四省电力公司付变压器货款，进 2027 年输变电收入。</td><td class="fomo">7.5<span class="bar"><i style="width:75%"></i></span></td><td class="mini">临2 关1.5 门2 差1 拥1</td><td class="sec"><b>2026-11-16 第四次临时股东会</b>（D14，已确认，临 2026-058，13:00 现场）：30 亿元担保额度议案</td></tr>
+<tr><td class="nm">金力永磁<em>300748.SZ</em></td><td>海关总署 10 月稀土出口数据快讯</td><td class="dt">2026-11-10</td><td class="tn">D8</td><td><span class="chip okc">已确认</span></td><td>行业月度数据</td><td class="why">时间表已公布 11-10 发快讯；出口量与管制口径决定海外客户补库节奏，进而决定镨钕价格与磁材单吨售价——付钱的是海外风机、车厂与机器人客户。</td><td class="fomo">8.5<span class="bar"><i style="width:85%"></i></span></td><td class="mini">临2 关1.5 门2 差1.5 拥1.5</td><td class="sec"><b>2026-12-08 11 月出口快讯</b>（D36，已确认时间表）</td></tr>
+<tr><td class="nm">歌尔股份<em>002241.SZ</em></td><td>双十一收官，AI 眼镜国补核销后的销售读数</td><td class="dt">2026-11-11</td><td class="tn">D9</td><td><span class="chip winc">时间窗口</span></td><td>行业月度数据</td><td class="why">智能眼镜按 15%、单件最高 500 元纳入国补，第四批 625 亿元资金集中核销；平台销量与激活量决定整机厂 Q4 追加排产，歌尔按整机代工份额收加工费。</td><td class="fomo">8.0<span class="bar"><i style="width:80%"></i></span></td><td class="mini">临2 关2 门2 差0.5 拥1.5</td><td class="sec"><b>12 月客户新品发布／量产拉货</b>：观察假设，无官方日期（2026H2 屏显款量产、Q3—Q4 备货峰值仅为产业链口径）</td></tr>
+<tr><td class="nm">爱玛科技<em>603529.SH</em></td><td>双十一收官：两轮车线上销量与新国标换购读数</td><td class="dt">2026-11-11</td><td class="tn">D9</td><td><span class="chip winc">时间窗口</span></td><td>行业月度数据</td><td class="why">旧标车 2025-12-01 起禁售、换购需求在 Q4 释放；双十一线上 GMV 与门店提货决定 Q4 收入能否从 Q3 的 −13.81% 收窄，付钱的是终端消费者与经销商。</td><td class="fomo">6.5<span class="bar"><i style="width:65%"></i></span></td><td class="mini">临2 关0.5 门2 差0.5 拥1.5</td><td class="sec"><b>2027-04-30 2026 年年度报告</b>（D179，时间窗口：法定上限），看毛利率能否回到 18%</td></tr>
+<tr><td class="nm">东方电缆<em>603606.SH</em></td><td>2026 年三季度业绩说明会（公告 2026-029）</td><td class="dt">2026-11-16</td><td class="tn">D14</td><td><span class="chip okc">已确认</span></td><td>定期报告</td><td class="why">董事长、总经理、财务总监同场答问，核心是 159.42 亿元在手订单（海缆与高压电缆 79.26 亿元）的交付节奏；业主按 EPC 进度付海缆款，答疑决定 2027 年确收能见度。</td><td class="fomo">7.5<span class="bar"><i style="width:75%"></i></span></td><td class="mini">临1.5 关1.5 门2 差1 拥1.5</td><td class="sec"><b>2027-04-30 2026 年年度报告</b>（D179，时间窗口：法定上限）</td></tr>
+<tr><td class="nm">长鑫科技<em>688825.SH</em></td><td>2026 年三季度业绩说明会（公告 2026-020）</td><td class="dt">2026-11-17</td><td class="tn">D15</td><td><span class="chip okc">已确认</span></td><td>定期报告</td><td class="why">就 Q3 营收 1187.14 亿元（环比 +19.30%）、毛利率 89.53% 与 Q4 DRAM 价格指引答问；付钱的是服务器与手机厂采购单，说明会决定市场给多少 2027 年 EPS。</td><td class="fomo">5.5<span class="bar"><i style="width:55%"></i></span></td><td class="mini">临1.5 关2 门0.5 差1 拥0.5</td><td class="sec"><b>2027-01-27 回购最早可实施日</b>（D86，时间窗口：须上市满 6 个月）；同日预计解禁 15.21 亿股、占 2.24%（东财推算）</td></tr>
+<tr><td class="nm">圆通速递<em>600233.SH</em></td><td>2026 年 10 月快递业务主要经营数据公告</td><td class="dt">2026-11-19—11-20</td><td class="tn">D17—D18</td><td><span class="chip winc">时间窗口</span></td><td>行业月度数据</td><td class="why">9 月单票收入 2.08 元、同比 −5.76%，件量 +12.33%，典型增量不增收；10 月单票降幅若收窄即证明反内卷提价传导，付钱的是电商商家，直接改毛利。</td><td class="fomo">7.5<span class="bar"><i style="width:75%"></i></span></td><td class="mini">临1 关1.5 门2 差1 拥2</td><td class="sec"><b>2026-12-19—12-20 11 月经营数据</b>（D47—D48，时间窗口）：验证双 11 后提价有无回吐</td></tr>
+<tr><td class="nm">中国船舶<em>600150.SH</em></td><td>1—10 月造船三大指标发布（工信部／中国船协）</td><td class="dt">2026-11 中下旬</td><td class="tn">约 D25</td><td><span class="chip winc">时间窗口</span></td><td>行业月度数据</td><td class="why">1—9 月新接订单 1.75 亿 DWT、同比 +163.2%（全球 81.8%），手持 3.99 亿 DWT；新单继续放量意味着 2028 年船位与船价，船东签约预付的款项进公司合同负债。</td><td class="fomo">6.0<span class="bar"><i style="width:60%"></i></span></td><td class="mini">临0.5 关1.5 门2 差0.5 拥1.5</td><td class="sec"><b>2027-04-30 2026 年年度报告</b>（D179，时间窗口：法定上限）</td></tr>
+<tr><td class="nm">恒瑞医药<em>600276.SH</em></td><td>2026 年国家医保药品目录及商保创新药目录发布</td><td class="dt">2026-11（未定日）</td><td class="tn">D0—D28</td><td><span class="chip winc">时间窗口</span></td><td>政策落地</td><td class="why">最早公开信号日 2026-05-09（征求意见稿解读）、正式方案 05-31、谈判 09-05 至 09-08 已完成，媒体口径 11 月发布；新准入品种由医保基金按支付标准结算、患者购药，院内采购量与销量放大。施行日 2027-01-01。</td><td class="fomo">7.0<span class="bar"><i style="width:70%"></i></span></td><td class="mini">临1 关2 门2 差1 拥1</td><td class="sec"><b>2027-01-01 目录正式施行</b>（D60，时间窗口：政策施行日）</td></tr>
+<tr><td class="nm">巨化股份<em>600160.SH</em></td><td>2027 年度 HFCs 生产配额分配结果核发</td><td class="dt">2026-12 中下旬</td><td class="tn">约 D45—58</td><td><span class="chip winc">时间窗口</span></td><td>政策落地</td><td class="why">最早公开信号日 2026-10-15（环办大气〔2026〕20 号配额方案印发，10-16 公开）、企业 10-31 前提交申请；总量锁死在基线值（生产 18.53 亿 tCO₂，与 2026 持平）仅增发 HFC-236fa 150 吨，核定到厂即锁供给，空调厂长协价与补库决定 R32／R125 售价。施行日 2027-01-01。</td><td class="fomo">6.5<span class="bar"><i style="width:65%"></i></span></td><td class="mini">临0.5 关2 门2 差1 拥1</td><td class="sec"><b>2027-01-01 新配额年度起算</b>（D60，时间窗口）；2027 空调长协价（观察假设，11—12 月窗口无定日）</td></tr>
+<tr><td class="nm">沪电股份<em>002463.SZ</em></td><td>2026 年度业绩快报</td><td class="dt">2027-01-28</td><td class="tn">D87</td><td><span class="chip winc">时间窗口</span></td><td>定期报告</td><td class="why">上一年度业绩快报为 2026-01-28，据此推算；快报要回答 Q4 1.6T 交换机 PCB 出货与 44.02% 毛利率能否守住——付钱的是交换机与 AI 服务器整机厂，三季报后已连跌三日，快报是唯一能翻盘的硬数字。</td><td class="fomo">5.5<span class="bar"><i style="width:55%"></i></span></td><td class="mini">临0.5 关2 门2 差0.5 拥0.5</td><td class="sec"><b>2027-03-25 2026 年年度报告</b>（D143，时间窗口：上年度年报 2026-03-25 公告）</td></tr>
+<tr><td class="nm">海力风电<em>301155.SZ</em></td><td>2026 年度业绩预告</td><td class="dt">2027-01-31 前</td><td class="tn">D90</td><td><span class="chip winc">时间窗口</span></td><td>业绩预告</td><td class="why">前三季亏 1.54 亿元、Q3 单季营收同比 −95.10%，创业板亏损须在 1-31 前预告；要回答 10.85 亿元导管架合同是否在 Q4 转收入，付钱的是深远海项目业主。</td><td class="fomo">6.0<span class="bar"><i style="width:60%"></i></span></td><td class="mini">临0.5 关1 门1.5 差1.5 拥1.5</td><td class="sec"><b>2027-04-30 2026 年年度报告</b>（D179，时间窗口：法定上限）</td></tr>
+<tr><td class="nm">中文在线<em>300364.SZ</em></td><td>2026 年度业绩预告</td><td class="dt">2027-01-31 前</td><td class="tn">D90</td><td><span class="chip winc">时间窗口</span></td><td>业绩预告</td><td class="why">前三季归母 −1.32 亿元（减亏 74.63%），创业板亏损须 1-31 前预告；决定全年能否摘掉亏损，收入靠海外用户为 ReelShort（持股 49.16%、权益法）与 FlareFlow 付费。</td><td class="fomo">5.0<span class="bar"><i style="width:50%"></i></span></td><td class="mini">临0.5 关1.5 门1.5 差1 拥0.5</td><td class="sec"><b>ReelShort 海外月度流水榜</b>：观察假设，无公开发布日历（已查 Sensor Tower 报告页、公司公告、互动易）</td></tr>
+<tr><td class="nm">中国卫星<em>600118.SH</em></td><td>2026 年年度报告</td><td class="dt">2027-03-31</td><td class="tn">D149</td><td><span class="chip winc">时间窗口</span></td><td>定期报告</td><td class="why">上一年度年报 2026-03-31 披露，据此推算；年报要确认卫星研制合同履约节点验收带来的收入——付钱的是航天科技集团体系内与军方客户，前三季净利 8492.91 万元、同比 +473.40%。</td><td class="fomo">5.5<span class="bar"><i style="width:55%"></i></span></td><td class="mini">临0 关2 门2 差1 拥0.5</td><td class="sec"><b>具体发射任务</b>：观察假设，无公开排期；12-07 珠海航展未确认参展</td></tr>
+<tr><td class="nm">精研科技<em>300709.SZ</em></td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="tn">D179</td><td><span class="chip winc">时间窗口</span></td><td>定期报告</td><td class="why">90 天内无公司层面的确定日期（原记 2027-01-22 观察点经查无公告依据，仅作观察假设）；年报是首个能验证 MIM 零部件及组件（占 56.73%）是否吃到折叠屏订单的硬文件，付钱的是整机厂模具与量产款。</td><td class="fomo">4.0<span class="bar"><i style="width:40%"></i></span></td><td class="mini">临0 关1 门1.5 差1 拥0.5</td><td class="sec"><b>未取得</b>：已查巨潮、上交所/深交所公告、东方财富 F10、证券之星交易提示</td></tr>
+<tr><td class="nm">大金重工<em>002487.SZ</em></td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="tn">D179</td><td><span class="chip winc">时间窗口</span></td><td>定期报告</td><td class="why">H 股回购（10-26 董事长提议、10-27 公告 2026-077）仍需股东会授权、且未见会议通知；年报是第一份能确认波兰 BC Wind、德国 Nordseecluster B 单桩批量发运转收入的文件，欧洲业主按交付节点付款。</td><td class="fomo">5.0<span class="bar"><i style="width:50%"></i></span></td><td class="mini">临0 关1.5 门1.5 差1 拥1</td><td class="sec"><b>H 股回购股东会</b>：观察假设，会议日期未公告；前三季海外海工交付近 15 万吨、Q3 净利同比 −67.85%</td></tr>
+<tr><td class="nm">先导智能<em>300450.SZ</em></td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="tn">D179</td><td><span class="chip winc">时间窗口</span></td><td>定期报告</td><td class="why">10-15 互动平台称固态电池设备已批量交付、覆盖干法电极与等静压全流程，但未给订单金额与日期；年报才能把固态与海外订单落到收入，付钱的是电池厂客户的设备预付款。</td><td class="fomo">5.5<span class="bar"><i style="width:55%"></i></span></td><td class="mini">临0 关1.5 门2 差1 拥1</td><td class="sec"><b>固态电池订单／中标</b>：观察假设，无日期；海外客户扩产公告同样无日期</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><i></i>按 FOMO 分另排序</h2>
+  <div class="scroll">
+  <table id="rank">
+    <thead><tr><th class="r">#</th><th>标的</th><th>最近节点</th><th>日期</th><th>FOMO</th><th>性质</th></tr></thead>
+    <tbody>
+<tr><td class="r">1</td><td class="nm">金力永磁 300748</td><td>海关总署 10 月稀土出口数据快讯</td><td class="dt">2026-11-10</td><td class="fomo">8.5</td><td><span class="chip okc">已确认</span></td></tr>
+<tr><td class="r">2</td><td class="nm">歌尔股份 002241</td><td>双十一收官，AI 眼镜国补核销后的销售读数</td><td class="dt">2026-11-11</td><td class="fomo">8.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">3</td><td class="nm">东方电缆 603606</td><td>2026 年三季度业绩说明会（公告 2026-029）</td><td class="dt">2026-11-16</td><td class="fomo">7.5</td><td><span class="chip okc">已确认</span></td></tr>
+<tr><td class="r">3</td><td class="nm">圆通速递 600233</td><td>2026 年 10 月快递业务主要经营数据公告</td><td class="dt">2026-11-19—11-20</td><td class="fomo">7.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">3</td><td class="nm">特变电工 600089</td><td>国网 2026 年第五批输变电设备中标结果公告（四包变压器排序第 1）</td><td class="dt">2026-11-03—11-05</td><td class="fomo">7.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">6</td><td class="nm">恒瑞医药 600276</td><td>2026 年国家医保药品目录及商保创新药目录发布</td><td class="dt">2026-11（未定日）</td><td class="fomo">7.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">7</td><td class="nm">巨化股份 600160</td><td>2027 年度 HFCs 生产配额分配结果核发</td><td class="dt">2026-12 中下旬</td><td class="fomo">6.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">7</td><td class="nm">恩捷股份 002812</td><td>回购股份进展公告（10 月进度）</td><td class="dt">2026-11-03</td><td class="fomo">6.5</td><td><span class="chip okc">已确认</span></td></tr>
+<tr><td class="r">7</td><td class="nm">爱玛科技 603529</td><td>双十一收官：两轮车线上销量与新国标换购读数</td><td class="dt">2026-11-11</td><td class="fomo">6.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">10</td><td class="nm">中国船舶 600150</td><td>1—10 月造船三大指标发布（工信部／中国船协）</td><td class="dt">2026-11 中下旬</td><td class="fomo">6.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">10</td><td class="nm">海力风电 301155</td><td>2026 年度业绩预告</td><td class="dt">2027-01-31 前</td><td class="fomo">6.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">12</td><td class="nm">中国卫星 600118</td><td>2026 年年度报告</td><td class="dt">2027-03-31</td><td class="fomo">5.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">12</td><td class="nm">先导智能 300450</td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="fomo">5.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">12</td><td class="nm">沪电股份 002463</td><td>2026 年度业绩快报</td><td class="dt">2027-01-28</td><td class="fomo">5.5</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">12</td><td class="nm">长鑫科技 688825</td><td>2026 年三季度业绩说明会（公告 2026-020）</td><td class="dt">2026-11-17</td><td class="fomo">5.5</td><td><span class="chip okc">已确认</span></td></tr>
+<tr><td class="r">16</td><td class="nm">中文在线 300364</td><td>2026 年度业绩预告</td><td class="dt">2027-01-31 前</td><td class="fomo">5.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">16</td><td class="nm">大金重工 002487</td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="fomo">5.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+<tr><td class="r">18</td><td class="nm">精研科技 300709</td><td>2026 年年度报告</td><td class="dt">2027-04-30 前</td><td class="fomo">4.0</td><td><span class="chip winc">时间窗口</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2><i></i>FOMO 怎么算的（本卡口径，不是通用标准）</h2>
+  <div class="note">
+    <p><b>五项等权、各 0—2 分，加总即 FOMO 分（0—10）。</b>它只衡量「这段时间这只票被资金追着买的强度」，与任何 B／C 产业评分不可换算、不可替代。</p>
+    <ul>
+      <li><span class="tag">临近性</span>7 天内 2；8—30 天 1.5；31—60 天 1；61—90 天 0.5；90 天以上或日期未定 0。</li>
+      <li><span class="tag">关注度基数</span>板块热度＋讨论量：主线龙头 2；热门板块二三线 1.5；中性 1；冷门 0.5。</li>
+      <li><span class="tag">参与门槛</span>能否直接买、有无更纯替代：主板／创业板、流动性好、无替代 2；科创板或同板块有更纯标的 0.5—1.5。</li>
+      <li><span class="tag">预期差</span>尚无一致预期 2；有预期未完全反映 1；已被充分定价（如季报后跌停）0.5 或 0。</li>
+      <li><span class="tag">拥挤度（反向）</span>未被炒 2；有成交但未极端 1—1.5；已大幅炒过、涨幅或换手极端 0.5 或 0。</li>
+    </ul>
+    <p style="margin-top:8px">关注度与拥挤度用到可得的硬数据：沪电 11-02 收 86.05 元、距 7-01 高点 158.2 元跌 45.61%、三季报后 10-29 跌停；中国卫星 10-30 换手 6.34%、融资余额 25.73 亿元；精研 10-28 换手 7.28%；金力 10-30 换手 1.35%；歌尔 10-27 换手 0.81%；特变 10-30 收 17.37 元、换手 0.98%；东方电缆 10-30 换手约 2.32%、9-30 至 10-30 仅涨 1.12%。其余无换手／涨幅硬数据的按板块常态给中间值。</p>
+  </div>
+
+  <h2><i></i>缺口栏</h2>
+  <div class="note">
+    <p><b>90 天内没有公司层面确定节点的 6 只</b>：精研科技、大金重工、中国卫星、海力风电、中文在线、先导智能。表内日期都是年报／业绩预告的法定或惯例兜底，不是公司排期；轴尾以「窗口外」标注。</p>
+    <ul>
+      <li><b>恒瑞医药</b>：医保目录只给到「2026 年 11 月」，官方未公布发布日。政策节点两边分开写——最早公开信号日 2026-05-09（征求意见稿解读，正式方案 05-31，谈判 09-05 至 09-08 结束）；施行日 2027-01-01。</li>
+      <li><b>巨化股份</b>：最早公开信号日 2026-10-15（配额方案印发，10-16 公开，企业 10-31 前申报）；2027 年度配额「分配结果核发」日未公布，按 12 月中下旬推；施行日 2027-01-01。2027 空调长协价仅作观察假设。</li>
+      <li><b>中国卫星</b>：具体发射任务无公开排期；2026-12-07—13 珠海航展公告未提及中国卫星参展，故轴上只标为观察假设，不作催化。</li>
+      <li><b>中文在线</b>：ReelShort／海外短剧月度流水榜无公开发布日历；原记 2026-11-20 前后的说法未取得任何证据支持，轴上降级为观察假设。</li>
+      <li><b>大金重工</b>：H 股回购（2026-077）仍需股东会授权，会议通知未公告；已查深交所、港交所披露易与公司投关记录表。</li>
+      <li><b>精研科技</b>：原记 2027-01-22 观察点，在东方财富 F10、证券之星交易提示、巨潮公告中均无依据，轴上只作观察假设，不作最近节点。</li>
+      <li><b>歌尔股份</b>：12 月客户新品发布／量产拉货无官方日期，仅有 2026H2 屏显款量产、Q3—Q4 备货峰值的产业链口径，轴上为观察假设。</li>
+      <li><b>特变电工</b>：国网第五批正式中标公告日未取得，按公示期 3 日推为 11-03—11-05；11-16 股东会本身是已确认（临 2026-058，2026-10-30 披露）。</li>
+      <li><b>月度数据的发布日</b>：圆通月度经营数据、造船三大指标、双十一销量读数均无官方预告发布日，按上年同期或固定日历推算，已标为时间窗口。</li>
+      <li><b>交易日历限制</b>：2026 年内日期已按沪深交易所日历核对（2026-12-06 为周日休市）；2027 年官方交易日历本次未取得，2027 年日期只按星期与法定截止推算，未扣春节等休市。</li>
+      <li><b>2027-01-01</b> 既是医保目录与新配额年度的施行日，也是元旦，实际首个交易日以交易所公告为准。</li>
+      <li><b>未做的一层</b>：18 只的 2027 年定期报告预约披露日（交易所通常 12 月底至 1 月初公布）本次均未取得，年报类节点全部按上年实际披露日或 4-30 法定上限推算。</li>
+    </ul>
+  </div>
+
+  <h2><i></i>来源</h2>
+  <div class="note src">
+    <p><b>公告与定期报告</b>：上交所《长鑫科技关于召开 2026 年第三季度业绩说明会的公告》（2026-10-31，2026-020）；《特变电工关于召开 2026 年第四次临时股东会的通知》（2026-10-30，临 2026-058）；《东方电缆关于召开 2026 年第三季度业绩说明会的公告》（2026-10-29，2026-029）；《大金重工关于公司董事长提议回购公司 H 股的提示性公告》（2026-10-27，2026-077）；《恩捷股份关于回购公司股份的进展公告》（2026-11-03）；《圆通速递 2026 年 9 月快递业务主要经营数据公告》（临 2026-071，2026-10-20）。</p>
+    <p><b>政策文件</b>：生态环境部办公厅《关于印发 2027 年度消耗臭氧层物质和氢氟碳化物配额总量设定与分配方案的通知》（环办大气〔2026〕20 号，2026-10-15 印发、10-16 公开，mee.gov.cn）；国家医保局 2026 年目录调整工作方案征求意见稿解读（2026-05-09）与现场谈判（2026-09-05 至 09-08）。</p>
+    <p><b>数据时间表</b>：海关总署公告 2025 年第 240 号《关于 2026 年中国海关统计数据公布时间的公告》（11 月快讯 11-10、月刊 11-18、在线查询 11-20；12 月快讯 12-08）。</p>
+    <p><b>行情与行业数据</b>：18 只 2026 年三季报（恒瑞 10-27、特变 10-30、精研 10-23、长鑫 10-31、金力 10-28、沪电 10-28、大金 10-26、中国卫星 10-29、中文在线 10-25、圆通 10-20、海力 10-29、东方电缆 10-29、恩捷 10-26、爱玛 10-23、巨化、中国船舶 10-31、歌尔 10-23、先导）；国网 2026 年第五批输变电设备中标候选人公示（2026-10-29）；中国船舶工业行业协会 1—9 月三大指标；东方财富行情页与 F10 大事提醒（换手率、解禁表、股东会日期）。</p>
+  </div>
+
+</div>
+</body>
+</html>

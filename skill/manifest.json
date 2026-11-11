@@ -1,0 +1,59 @@
+{
+  "name": "industry-exposure-card",
+  "display_name": "产业敞口信息卡",
+  "version": "2.3.0",
+  "entrypoint": "SKILL.md",
+  "language": "zh-CN",
+  "timezone": "Asia/Shanghai",
+  "description": "每日产业敞口信息卡：daily_push先过60/120/250交易日跌幅榜与90天S/A级节点共振，再按B+C硬准入筛选A股主标的，生成单文件HTML；无合格标的时报告全市场未检索到合适标的。",
+  "modes": [
+    "daily_push",
+    "named_research"
+  ],
+  "admission": {
+    "logic_kill": false,
+    "b_min": 3,
+    "c_min": 3,
+    "bc_min": 7,
+    "ma_gate": false
+  },
+  "screening": {
+    "decline_windows_trading_days": [
+      60,
+      120,
+      250
+    ],
+    "decline_metrics": [
+      "interval_return",
+      "max_drawdown"
+    ],
+    "require_decline_ranking": true,
+    "require_node_for_push": true,
+    "node_min_tier": "A",
+    "resonance_priority": [
+      "node_quality",
+      "decline_resolvability",
+      "bc",
+      "purity"
+    ]
+  },
+  "schedule": [
+    "08:00",
+    "09:00",
+    "10:00"
+  ],
+  "outputs": {
+    "card": "outputs/YYYY-MM-DD/<exposure>-<company>-产业信息卡-YYYY-MM-DD.html",
+    "push": "outputs/YYYY-MM-DD/push-HHMM.txt",
+    "run_log": "outputs/YYYY-MM-DD/run-HHMM.md",
+    "dedupe": "outputs/state/pushed-index.json"
+  },
+  "files": {
+    "skill": "SKILL.md",
+    "skeleton": "assets/skeleton-template.html",
+    "config": "config.example.yaml",
+    "validator": "scripts/validate_card.py",
+    "screening": "references/screening-and-resonance.md",
+    "spec": "references/original/信息卡-Version2.3-执行规范.md"
+  }
+}

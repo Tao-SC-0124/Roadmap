@@ -1,0 +1,44 @@
+# 产业信息卡统一工作区配置（本地）
+# 规则默认值不要随意改；这里只负责本机路径与班次。
+
+timezone: Asia/Shanghai
+push_times:
+  - "08:00"
+  - "09:00"
+  - "10:00"
+
+cards_per_run: 1
+take_pass_prompt: true
+dedupe_days: 20
+
+# 2026-11-10 用户确认的筛选标准
+screening:
+  decline_windows_trading_days: [60, 120, 250]
+  decline_metrics: ["interval_return", "max_drawdown"]
+  require_decline_ranking: true
+  require_node_for_push: true
+  node_min_tier: "A"
+  resonance_priority: ["node_quality", "decline_resolvability", "bc", "purity"]
+  exclude_st: true
+  min_listing_days: 250
+  min_avg_turnover: 0.0
+
+no_new_policy: report
+anchor_profile: formal_proposal
+
+# 本工作区：daily push 的 HTML、推送文本、运行底稿、PDF 都在
+# 报告评审记录/YYYYMMDD/ 下完成
+output_dir: 报告评审记录
+date_folder_format: YYYYMMDD
+state_dir: 报告评审记录/.state
+
+# PDF 转换入口（V2.2 卡自动走 6 页流程；其他 HTML 走通用 A4）
+pdf_converter: 报告评审记录/scripts/convert-any.sh
+
+# 研究缓存（不进 git）
+research_dir: research
+
+language: zh-CN
+spec_version: v2.3
+card_theme: v2.2
+emit_png: false

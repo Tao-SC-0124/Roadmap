@@ -1,0 +1,2 @@
+e6ecd16d0fde38b843925a866bbafcce6a86124fc64104fa4dba256240924847  industry-exposure-card-skill-v2.3.0.zip
+3dcd4e57547dac2005cfd714d32714c3c0a1be95b5c3a1b456bb9a9eccb437f8  industry-exposure-card-skill-v2.3.0-flat.zip

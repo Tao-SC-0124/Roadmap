@@ -1,2 +1,26 @@
 .DS_Store
 **/.制作/
+__pycache__/
+
+# 本地研究缓存与分发物
+research/
+dist/*.zip
+_archive/
+outputs/
+
+# 报告评审记录：只跟踪 SKILL.md、scripts、inbox/outbox 说明；
+# 日期目录、PDF、HTML、.制作 是本地打印产物，不进 git
+报告评审记录/20*/
+报告评审记录/*.pdf
+报告评审记录/**/*.pdf
+报告评审记录/*.html
+报告评审记录/**/*.html
+报告评审记录/**/*.png
+报告评审记录/**/*.jpg
+报告评审记录/.制作/
+报告评审记录/**/.制作/
+报告评审记录/.state/
+
+# skill 运行输出
+skill/outputs/*
+!skill/outputs/.gitkeep

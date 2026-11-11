@@ -1,0 +1,62 @@
+# 产业信息卡 Skill 运行配置示例
+# 复制为 config.yaml 后按需修改；不要改研究规则的默认值，除非你明确知道后果。
+
+timezone: Asia/Shanghai
+push_times:
+  - "08:00"
+  - "09:00"
+  - "10:00"
+
+# 每次运行最多产出几张卡；建议 1，不要为凑数调大
+cards_per_run: 1
+
+# 推送正文末尾是否保留 take/pass 表态请求
+# 本 skill 不保存回复，也不维护跟踪状态；这句话供外部跟踪机制消费
+take_pass_prompt: true
+
+# 同一「敞口 + 主标的」去重窗口（自然日）
+dedupe_days: 20
+
+# 2026-11-10 用户确认的筛选标准
+screening:
+  # 60/120/250 交易日；每个窗口单独排序
+  decline_windows_trading_days: [60, 120, 250]
+  # 同时算区间收盘涨跌幅与区间最大回撤，分开列
+  decline_metrics: ["interval_return", "max_drawdown"]
+  # daily_push 必须来自跌幅榜
+  require_decline_ranking: true
+  # daily_push 至少一个 S/A 节点；B 只能辅助，C 不作兑现节点
+  require_node_for_push: true
+  node_min_tier: "A"          # S/A required
+  # 排序：节点质量 > 跌幅可解释/可剥离 > B/C > 纯度
+  resonance_priority: ["node_quality", "decline_resolvability", "bc", "purity"]
+  # 默认剔除：ST/*ST、上市不足窗口、长期停牌、流动性过低
+  exclude_st: true
+  min_listing_days: 250
+  min_avg_turnover: 0.0        # 0 = 不设硬阈值，由研究判断；如需可填 0.5 等
+
+# 09:00/10:00 无新增合格标的时的输出
+# report  = 「本轮全市场未检索到新的符合准入产业敞口。」
+# silence = 只输出「暂无值得关注信息」
+no_new_policy: report
+
+# 输出目录（相对工作目录）；分发版默认 outputs/YYYY-MM-DD/
+output_dir: outputs
+date_folder_format: YYYY-MM-DD
+state_dir: outputs/state
+# 本工作区在根目录 config.yaml 覆盖为：
+# output_dir: 报告评审记录
+# date_folder_format: YYYYMMDD
+# state_dir: 报告评审记录/.state
+# pdf_converter: 报告评审记录/scripts/convert-any.sh
+
+# 赔率锚点判据：
+# formal_proposal = checklist §26 过渡口径（放量 >= 1.5x 前20日均量、最近120交易日、±1%、有效测试 >= 1次）
+# strict          = 更严口径（放量 >= 1.2x、同一位置至少2次测试）
+anchor_profile: formal_proposal
+
+# 报告语言与视觉
+language: zh-CN
+spec_version: v2.3
+card_theme: v2.2
+emit_png: false
