@@ -22,9 +22,10 @@ screening:
   exclude_st: true
   min_listing_days: 250
   min_avg_turnover: 0.0
+  relative_benchmarks: ["industry", "csi300"]
 
 no_new_policy: report
-anchor_profile: formal_proposal
+anchor_profile: v2_3
 
 # 本工作区：daily push 的 HTML、推送文本、运行底稿、PDF 都在
 # 报告评审记录/YYYYMMDD/ 下完成
@@ -32,7 +33,7 @@ output_dir: 报告评审记录
 date_folder_format: YYYYMMDD
 state_dir: 报告评审记录/.state
 
-# PDF 转换入口（V2.2 卡自动走 6 页流程；其他 HTML 走通用 A4）
+# PDF 转换入口（V2.2/V2.3 卡与通用 HTML 都 ≤6 页）
 pdf_converter: 报告评审记录/scripts/convert-any.sh
 
 # 研究缓存（不进 git）
@@ -42,3 +43,4 @@ language: zh-CN
 spec_version: v2.3
 card_theme: v2.2
 emit_png: false
+max_pages: 6

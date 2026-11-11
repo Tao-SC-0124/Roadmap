@@ -2,7 +2,7 @@
 /**
  * 通用 HTML → A4 PDF。
  * 不修改原 HTML 内容；仅展开 <details>、追加打印 CSS、保留背景色。
- * 适用于其他研究员的单文件 HTML；V2.2 信息卡请走 html-report-to-pdf.mjs 的六页流程。
+ * 适用于其他研究员的单文件 HTML；V2.2／V2.3 信息卡请走 html-report-to-pdf.mjs 的六页流程。
  *
  * 用法：
  *   node convert-generic.mjs INPUT.html [INPUT2.html] [--out-dir OUTPUT_DIR]
@@ -71,22 +71,29 @@ try {
     const output = path.join(dir, `${base}-打印版.pdf`);
     const candidate = path.join(tmp, `${base}-候选.pdf`);
 
-    await page.pdf({
-      path: candidate,
-      format: 'A4',
-      printBackground: true,
-      preferCSSPageSize: true,
-      displayHeaderFooter: true,
-      headerTemplate: '<span></span>',
-      footerTemplate: `<div style="font-size:8px;color:#667;width:100%;text-align:center">${safeName} · 打印副本　<span class="pageNumber"></span> / <span class="totalPages"></span></div>`,
-    });
-    const pages = countPages(candidate);
+    let pages = 0;
+    let scale = 1;
+    for (const n of [1, 0.96, 0.92, 0.9, 0.86, 0.82, 0.8]) {
+      scale = n;
+      await page.pdf({
+        path: candidate,
+        format: 'A4',
+        scale,
+        printBackground: true,
+        preferCSSPageSize: true,
+        displayHeaderFooter: true,
+        headerTemplate: '<span></span>',
+        footerTemplate: `<div style="font-size:8px;color:#667;width:100%;text-align:center">${safeName} · 打印副本　<span class="pageNumber"></span> / <span class="totalPages"></span></div>`,
+      });
+      pages = countPages(candidate);
+      if (pages <= 6) break;
+    }
+    if (pages > 6) throw Error(`${base}: ${pages} pages after permitted compaction (>6). Adjust source/print layout; do not delete content or shrink indefinitely.`);
     fs.copyFileSync(candidate, output);
     if (hash(input) !== originalHash) throw Error('Input HTML unexpectedly modified');
-    const record = {input, output, pages, inputSha256: originalHash, title, visualReview: 'pending'};
+    const record = {input, output, pages, scale, inputSha256: originalHash, title, visualReview: 'pending'};
     fs.writeFileSync(path.join(tmp, `${base}-转换检查.json`), JSON.stringify(record, null, 2));
-    console.log(JSON.stringify({name: safeName, pages, output, generic: true}));
-    if (pages > 6) console.error(`WARN: ${base} is ${pages} pages (>6). Generic HTML is not force-compressed; inspect before printing.`);
+    console.log(JSON.stringify({name: safeName, pages, scale, output, generic: true}));
     await context.close();
   }
 } finally {

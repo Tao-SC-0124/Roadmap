@@ -34,6 +34,8 @@ screening:
   exclude_st: true
   min_listing_days: 250
   min_avg_turnover: 0.0        # 0 = 不设硬阈值，由研究判断；如需可填 0.5 等
+  # 相对跌幅基准：行业指数优先；不可用用沪深300/中证全指
+  relative_benchmarks: ["industry", "csi300"]
 
 # 09:00/10:00 无新增合格标的时的输出
 # report  = 「本轮全市场未检索到新的符合准入产业敞口。」
@@ -50,13 +52,15 @@ state_dir: outputs/state
 # state_dir: 报告评审记录/.state
 # pdf_converter: 报告评审记录/scripts/convert-any.sh
 
-# 赔率锚点判据：
-# formal_proposal = checklist §26 过渡口径（放量 >= 1.5x 前20日均量、最近120交易日、±1%、有效测试 >= 1次）
-# strict          = 更严口径（放量 >= 1.2x、同一位置至少2次测试）
-anchor_profile: formal_proposal
+# 赔率锚点判据（V2.3 定稿）：
+# v2_3            = 放量 >= 1.5x 前20日均量、最近120交易日、±1%、同一位置至少2次有效测试、取价A保守
+# legacy_proposal = 1.5x、>= 1次测试、取价B对称（仅历史复核）
+# strict          = 2.0x、>= 2次测试、取价A（极端保守）
+anchor_profile: v2_3
 
 # 报告语言与视觉
 language: zh-CN
 spec_version: v2.3
 card_theme: v2.2
 emit_png: false
+max_pages: 6
