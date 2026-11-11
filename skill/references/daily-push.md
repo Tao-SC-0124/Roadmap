@@ -14,7 +14,8 @@
 | `take_pass_prompt` | true | 推送末尾是否加 take/pass 请求；不影响卡片 |
 | `dedupe_days` | 20 | 同一「敞口＋主标的」去重窗口；有新事件可标「更新」 |
 | `no_new_policy` | report | 09:00／10:00 无新增时：`report` 报「未检索到新的」；`silence` 只输出「暂无值得关注信息」 |
-| `output_dir` | outputs | HTML、推送文本、运行日志；本工作区为 `报告评审记录` |
+| `output_dir` | outputs | HTML、推送文本、运行日志；本工作区为 `正式卡` |
+| `pdf_output_dir` | outputs/pdf | PDF输出；本工作区为 `待打印PDF` |
 | `date_folder_format` | YYYY-MM-DD | 日期子目录格式；本工作区为 `YYYYMMDD` |
 | `state_dir` | outputs/state | 去重索引目录；本工作区为 `报告评审记录/.state` |
 | `anchor_profile` | v2_3 | `v2_3`＝1.5×／≥2次／取价A／±1%；`legacy_proposal`＝1.5×／≥1次／取价B（仅历史复核）；`strict`＝2.0×／≥2次／取价A |
@@ -24,7 +25,7 @@
 ## 2. 一次运行的十五步
 
 1. **确定班次与报告日**：北京时间；报告日＝运行日；取价日＝报告日前最近一个已收盘交易日（遇周末／节假日回退）。记录到运行日志。
-2. **读今日已有产物**：`{{output_dir}}/YYYYMMDD/` 下的 HTML、`push-*.txt`、`run-*.md`；读 `{{state_dir}}/pushed-index.json`。本工作区为 `报告评审记录/YYYYMMDD/` 与 `报告评审记录/.state/pushed-index.json`。确认本班次不得重复的敞口／主标的。
+2. **读今日已有产物**：`{{output_dir}}/YYYYMMDD/` 下的 HTML、`push-*.txt`、`run-*.md`；读 `{{state_dir}}/pushed-index.json`。本工作区为 `正式卡/YYYYMMDD/` 与 `报告评审记录/.state/pushed-index.json`。确认本班次不得重复的敞口／主标的。
 3. **交易日历核对**：按沪深交易所公告核对报告日、取价日与 90 天窗口内的交易日；取价日回退到最近一个已收盘交易日。**不读取、不依赖任何外部金融日历仓库**；无法确认时写「未取得」，不推测。
 4. **建跌幅榜候选池**（见 §3）：分别取 60／120／250 交易日跌幅榜，逐只算区间收盘涨跌幅＋最大回撤＋相对基准跌幅（行业指数优先，沪深300/中证全指兜底）；去重、剔除 ST／*ST／上市不足窗口／长期停牌／流动性过低；目标 20—40 个候选，记录每只挂在哪个窗口、哪个跌幅更大。
 5. **逐个候选过「敞口可定义」**：能写清具体产品／环节、必须排除的邻近业务、本次积极变化、期间、收入口径、证据口径。写不清的淘汰。
@@ -36,7 +37,7 @@
 11. **逐个候选算 B**：按 `scoring-and-timeline.md` §1.1；两侧锚点都必须量能测试过；V2.3默认1.5×／120交易日／±1%／同一位置至少2次有效测试／取价A保守；写六字段。只有1次测试只作观察位，不进入R；写不出→B「未取得」，该候选淘汰（daily_push 不生成无总分的卡）。
 12. **准入筛选**：未确认杀逻辑；B≥3；C≥3；B＋C≥7。全过才进入候选排序。
 13. **排序与定主标的**：节点质量 ＞ 跌幅可解释/可剥离 ＞ B/C ＞ 纯度；同一敞口内再按「纯度 × 兑现进度（五关）」排序。主标的必须能回答「为什么不是公认龙头」（3—5 家同环节横向对比）。**不许因为某只票便宜就把它当一个敞口。**
-14. **出卡**：复制 `assets/skeleton-template.html`，替换全部占位符；删除注释与 REPEAT 标记；卡片必须写「跌幅读数」与「出货窗口」；跑 `preflight-checklist.md`；写 HTML 到 `{{output_dir}}/YYYYMMDD/`（本工作区 `报告评审记录/YYYYMMDD/`）。
+14. **出卡**：复制 `assets/skeleton-template.html`，替换全部占位符；删除注释与 REPEAT 标记；卡片必须写「跌幅读数」与「出货窗口」；跑 `preflight-checklist.md`；写 HTML 到 `{{output_dir}}/YYYYMMDD/`（本工作区 `正式卡/YYYYMMDD/`）。
 15. **写推送正文、运行日志、去重索引**：正文≤5 行（不含 take/pass 行）；日志记录跌幅窗口与最大回撤、下跌原因、节点分级、出货窗口、候选池漏斗、被否决候选及理由码、关键来源、耗时；索引追加本次推送。
 
 ## 3. 候选池口径（全市场怎么扫）
@@ -97,7 +98,7 @@
 {{state_dir}}/
     pushed-index.json
 
-本工作区：`报告评审记录/YYYYMMDD/` 与 `报告评审记录/.state/pushed-index.json`。
+本工作区：`正式卡/YYYYMMDD/` 与 `报告评审记录/.state/pushed-index.json`；PDF 输出 `待打印PDF/YYYYMMDD/`。
 分发版默认：`outputs/YYYY-MM-DD/` 与 `outputs/state/pushed-index.json`。
 ```
 
@@ -119,7 +120,7 @@
       "total": 9,
       "B": 5,
       "C": 4,
-      "file": "报告评审记录/20261108/燃气轮机热端部件-应流股份-产业信息卡-2026-11-08.html"
+      "file": "正式卡/20261108/燃气轮机热端部件-应流股份-产业信息卡-2026-11-08.html"
     }
   ]
 }

@@ -29,11 +29,12 @@ anchor_profile: v2_3
 
 # 本工作区：daily push 的 HTML、推送文本、运行底稿、PDF 都在
 # 报告评审记录/YYYYMMDD/ 下完成
-output_dir: 报告评审记录
+output_dir: 正式卡
+pdf_output_dir: 待打印PDF
 date_folder_format: YYYYMMDD
 state_dir: 报告评审记录/.state
 
-# PDF 转换入口（V2.2/V2.3 卡与通用 HTML 都 ≤6 页）
+# PDF 转换入口（V2.2/V2.3 卡与通用 HTML 都 ≤6 页；--formal 读 正式卡/ 写 待打印PDF/）
 pdf_converter: 报告评审记录/scripts/convert-any.sh
 
 # 研究缓存（不进 git）

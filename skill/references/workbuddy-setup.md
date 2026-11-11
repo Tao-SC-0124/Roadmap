@@ -50,13 +50,13 @@ outputs/
 2. 按 SKILL.md 第 4 节与第 4.5 节完成产业四件事、纯度三情景、五关/C、B 锚点、节点；B 锚点默认 1.5×／120 日／≥2 次测试／取价A／±1%，1 次测试只作观察位；节点至少 1 个 S/A，并回答出货四问（谁付钱／哪个数字变好／为什么更高价／什么信号失效）。
 3. 最多产出 1 张过准入的卡；准入=未确认杀逻辑、B≥3、C≥3、B+C≥7，且必须有跌幅榜来源＋S/A 节点；确认杀逻辑、无 S/A 节点、只有 C 级软节点都不出卡。
 4. 无合格标的时，按情形写：跌幅榜有候选但无 S/A 节点→“本轮全市场未检索到「跌幅榜＋90天现象级节点」共振的合格敞口。”；有节点但不在跌幅榜或 B/C 不过线→“本轮有节点候选，但没有跌幅榜与赔率同时成立的敞口。”；并列出最多 3 个最接近的被否决候选及理由。
-5. HTML 写到 `config.yaml` 的 `output_dir`/YYYYMMDD/（本工作区为 `报告评审记录/YYYYMMDD/`），文件名按规范；卡片必须写「跌幅读数」与「出货窗口」；推送正文写到 push-0800.txt；运行日志写到 run-0800.md；更新 `state_dir`/pushed-index.json（本工作区 `报告评审记录/.state/`）。
+5. HTML 写到 `config.yaml` 的 `output_dir`/YYYYMMDD/（本工作区为 `正式卡/YYYYMMDD/`），文件名按规范；卡片必须写「跌幅读数」与「出货窗口」；推送正文写到 push-0800.txt；运行日志写到 run-0800.md；更新 `state_dir`/pushed-index.json（本工作区 `报告评审记录/.state/`）。
 6. 交付前逐项通过 references/preflight-checklist.md（含 K 组）；有 Python 时运行 scripts/validate_card.py。
 7. 推送正文：第一行一句核心结论且句内不带数字；空行后正文≤5行；最后按配置决定是否加 take/pass 行。
 ```
 
 
-**出卡后转 PDF**：`bash 报告评审记录/scripts/convert-any.sh --dir 报告评审记录/YYYYMMDD`。V2.2／V2.3 卡（同一骨架）自动走六页流程；其他研究员的 HTML 放 `报告评审记录/inbox/` 后运行 `--inbox`，PDF 出到 `outbox/`。
+**出卡后转 PDF**：`bash 报告评审记录/scripts/convert-any.sh --formal YYYYMMDD`（读 `正式卡/YYYYMMDD/`，写 `待打印PDF/YYYYMMDD/`）。V2.2／V2.3 卡（同一骨架）自动走六页流程；其他研究员的 HTML 放 `报告评审记录/inbox/` 后运行 `--inbox`，PDF 出到 `outbox/`。
 
 ### 09:00 增量
 
@@ -64,7 +64,7 @@ outputs/
 执行技能 industry-exposure-card，模式=daily_push，班次=09:00增量。
 
 必读：SKILL.md、references/daily-push.md、references/preflight-checklist.md。
-先读：`output_dir`/YYYYMMDD/push-0800.txt、run-0800.md、`state_dir`/pushed-index.json。本工作区为 `报告评审记录/YYYYMMDD/` 与 `报告评审记录/.state/`。
+先读：`output_dir`/YYYYMMDD/push-0800.txt、run-0800.md、`state_dir`/pushed-index.json。本工作区为 `正式卡/YYYYMMDD/` 与 `报告评审记录/.state/`。
 
 任务：
 1. 只寻找与 08:00 不同的合格敞口/主标的；不得重复，且必须同样来自 60／120／250 交易日跌幅榜＋S/A 节点共振。
@@ -72,7 +72,7 @@ outputs/
 3. 最多产出 1 张过准入的卡；准入标准不变：未确认杀逻辑、B≥3、C≥3、B+C≥7，且有跌幅榜来源＋S/A 节点。
 4. 无新增合格标的时，推送正文写：“本轮全市场未检索到新的符合准入产业敞口。”并注明 08:00 已推标的（如有）；若跌幅榜有候选但无 S/A 节点，用 screening-and-resonance.md §7 的专用文案；若配置 no_new_policy=silence，则只输出“暂无值得关注信息”。
 5. 其余同 08:00：输出 HTML（含跌幅读数＋出货窗口）、push-0900.txt、run-0900.md，更新索引，跑 preflight（含 K 组）。
-6. 出卡后转 PDF：`bash 报告评审记录/scripts/convert-any.sh --dir 报告评审记录/YYYYMMDD`。
+6. 出卡后转 PDF：`bash 报告评审记录/scripts/convert-any.sh --formal YYYYMMDD`。
 ```
 
 ### 10:00 增量
@@ -81,14 +81,14 @@ outputs/
 执行技能 industry-exposure-card，模式=daily_push，班次=10:00增量。
 
 必读：SKILL.md、references/daily-push.md、references/preflight-checklist.md。
-先读：`output_dir`/YYYYMMDD/ 下 08:00、09:00 的推送与运行日志，以及 `state_dir`/pushed-index.json。本工作区为 `报告评审记录/YYYYMMDD/` 与 `报告评审记录/.state/`。
+先读：`output_dir`/YYYYMMDD/ 下 08:00、09:00 的推送与运行日志，以及 `state_dir`/pushed-index.json。本工作区为 `正式卡/YYYYMMDD/` 与 `报告评审记录/.state/`。
 
 任务：
 1. 只寻找与 08:00、09:00 都不同的合格敞口/主标的；不得重复，且必须同样来自 60／120／250 交易日跌幅榜＋S/A 节点共振。
 2. 最多产出 1 张过准入的卡；准入标准不变：未确认杀逻辑、B≥3、C≥3、B+C≥7，且有跌幅榜来源＋S/A 节点。
 3. 无新增合格标的时，推送正文写：“本轮全市场未检索到新的符合准入产业敞口。”并注明前两班已推标的；若跌幅榜有候选但无 S/A 节点，用 screening-and-resonance.md §7 的专用文案；若配置 no_new_policy=silence，则只输出“暂无值得关注信息”。
 4. 其余同 08:00：输出 HTML（含跌幅读数＋出货窗口）、push-1000.txt、run-1000.md，更新索引，跑 preflight（含 K 组）。
-5. 出卡后转 PDF：`bash 报告评审记录/scripts/convert-any.sh --dir 报告评审记录/YYYYMMDD`。
+5. 出卡后转 PDF：`bash 报告评审记录/scripts/convert-any.sh --formal YYYYMMDD`。
 ```
 
 ## 4. 平台能力要求

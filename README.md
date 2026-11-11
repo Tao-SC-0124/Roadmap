@@ -13,7 +13,11 @@
 │   ├── Version2.2/             # V2.2 规范、三美 2.2 母版、修正说明
 │   └── Version2.3/             # 当前规范与变更登记
 ├── skill/                      # Agent skill 源码（SKILL.md、references、assets、scripts）
-├── 报告评审记录/                # daily push 输出 + 打印评审
+├── 正式卡/                      # 正式 HTML 卡，长期保存（本地，不进 git）
+│   └── YYYYMMDD/
+├── 待打印PDF/                   # 打印 PDF，临时，打印后可删（本地，不进 git）
+│   └── YYYYMMDD/
+├── 报告评审记录/                # 打印引擎 + 历史评审记录
 │   ├── SKILL.md                # 信息卡 HTML → A4 打印 PDF 的独立入口
 │   ├── scripts/                # V2.2 六页转换 + 通用 HTML 转换
 │   ├── YYYYMMDD/               # 每日 HTML、推送文本、运行底稿、PDF
@@ -41,19 +45,23 @@
 
 1. Agent 读取根目录 `config.yaml`、`skill/SKILL.md`、`skill/references/`。
 2. daily push 的 HTML、推送正文、运行底稿写到：
-   `报告评审记录/YYYYMMDD/`
+   `正式卡/YYYYMMDD/`
 3. 转 PDF：
 
 ```sh
-# 转某一天的全部 HTML
-bash 报告评审记录/scripts/convert-any.sh --dir 报告评审记录/20261110
+# 正式卡 → 待打印PDF（推荐）
+bash 报告评审记录/scripts/convert-any.sh --formal 20261110
 
-# 转单张卡
-bash 报告评审记录/scripts/convert-any.sh 报告评审记录/20261110/氟制冷剂-三美股份-产业信息卡-2026-11-10.html
+# 全部正式卡
+bash 报告评审记录/scripts/convert-any.sh --formal
+
+# 单张卡
+bash 报告评审记录/scripts/convert-any.sh 正式卡/20261110/氟制冷剂-三美股份-产业信息卡-2026-11-10.html
 ```
 
 - V2.2 信息卡自动走六页流程（A4、保留原卡图形/配色、最多 6 页）。
 - 其他 HTML 自动走通用 A4 流程，同样≤6页；超过则报错，不删内容，输出到 `报告评审记录/outbox/`。
+- 也可以在 Finder 双击根目录 `转正式卡PDF.command`，按提示输入日期（回车=全部）。
 
 > **运行位置**：如果 Workbuddy 是云端运行，它写不到本机 Desktop；把当天 HTML、推送文本下载回 `报告评审记录/YYYYMMDD/` 再转 PDF。如果 Workbuddy 在本机运行并能访问这个文件夹，把工作目录设为 `产业信息卡skill/`，它就会读取根目录 `config.yaml`，直接写入日期目录。
 
@@ -75,7 +83,7 @@ git pull
 git push
 ```
 
-- `.gitignore` 已排除：`research/`、`dist/*.zip`、`_archive/`、`报告评审记录/` 下的 PDF/HTML/`.制作/`、`skill/outputs/`。
+- `.gitignore` 已排除：`正式卡/`、`待打印PDF/`、`research/`、`dist/*.zip`、`_archive/`、`报告评审记录/` 下的日期目录与 PDF/HTML/`.制作/`、`skill/outputs/`。
 - 建议提交的内容：`信息卡/`、`skill/` 源码、`报告评审记录/SKILL.md` 与 `scripts/`、`README.md`、`config.yaml`、`.gitignore`。
 - 不提交：PDF、每日 HTML、研究缓存、zip、归档。
 - 本地文件夹改名不影响远端；如需改 GitHub 仓库名，在 GitHub 设置里改，再把 remote 改成新 URL。
@@ -86,7 +94,7 @@ git push
 2. `skill/` 是 Agent 可执行源码；改规则先改 `skill/SKILL.md` 与 `skill/references/`，再重新打包到 `dist/`。
 3. `报告评审记录/` 只做打印副本与排版检查，不改研究结论；打印产物不进 git。
 4. `金融日历` 已停用；如需恢复，先从 `_archive/` 取出并重新评估是否纳入 daily push。
-5. 所有输出以 `报告评审记录/YYYYMMDD/` 为唯一日期目录，不再同时维护 `outputs/`。
+5. 正式 HTML 统一放 `正式卡/YYYYMMDD/`；打印 PDF 统一放 `待打印PDF/YYYYMMDD/`，打印后可删。
 
 ## 版本摘要
 

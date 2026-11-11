@@ -44,6 +44,7 @@ no_new_policy: report
 
 # 输出目录（相对工作目录）；分发版默认 outputs/YYYY-MM-DD/
 output_dir: outputs
+pdf_output_dir: outputs/pdf
 date_folder_format: YYYY-MM-DD
 state_dir: outputs/state
 # 本工作区在根目录 config.yaml 覆盖为：

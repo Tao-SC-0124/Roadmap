@@ -20,13 +20,16 @@ description: 将本工作区V2.2／V2.3产业信息卡HTML转换成保留原卡�
 ## 本目录在统一工作区中的位置
 
 - 本目录是 `产业信息卡skill/` 的打印评审区，不是独立文件夹。
-- daily push 的 HTML、推送正文、运行底稿直接写在 `YYYYMMDD/`；V2.2／V2.3 卡的六页 PDF 也放同目录。
+- daily push 的 HTML 写在 `../正式卡/YYYYMMDD/`；转换后的 PDF 写 `../待打印PDF/YYYYMMDD/`；推送文本与运行底稿可留在 `../正式卡/YYYYMMDD/` 或本目录。
 - `inbox/` 放其他研究员的单文件 HTML；`outbox/` 放通用 HTML 转出的 PDF。
 - 统一入口：`scripts/convert-any.sh`。它会自动识别 V2.2／V2.3 卡（六页流程）和普通 HTML（通用 A4 流程）。
 
 ```sh
-# 某一天的全部 HTML
-bash scripts/convert-any.sh --dir YYYYMMDD
+# 正式卡 → 待打印PDF（推荐）
+bash scripts/convert-any.sh --formal YYYYMMDD
+
+# 全部正式卡
+bash scripts/convert-any.sh --formal
 
 # 单张 V2.2／V2.3 卡或普通 HTML
 bash scripts/convert-any.sh path/to/report.html

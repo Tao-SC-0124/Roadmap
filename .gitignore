@@ -2,6 +2,12 @@
 **/.制作/
 __pycache__/
 
+# 正式卡与临时打印 PDF（本地档案，不进 git）
+正式卡/*
+!正式卡/README.md
+待打印PDF/*
+!待打印PDF/README.md
+
 # 本地研究缓存与分发物
 research/
 dist/*.zip
