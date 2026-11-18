@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="industry-card-version" content="3.0">
+<meta name="description" content="{{DESCRIPTION}}">
+<title>{{HEADLINE}} · 产业信息卡</title>
+<style>
+:root {
+  color-scheme: light; --paper:#f6f7f3; --white:#fff; --ink:#19312e; --muted:#536763;
+  --line:#dce4de; --green:#185547; --pale:#e8f2ed; --bar:#d9e6df;
+  --amber:#794916; --gold:#fbefd8;
+  --sans:"Inter","PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --serif:"Songti SC","Noto Serif CJK SC",SimSun,serif;
+}
+* {box-sizing:border-box}
+body {margin:0;background:var(--paper);color:var(--ink);font:15px/1.65 var(--sans);font-variant-numeric:tabular-nums}
+h1,h2,h3,p {margin:0}
+a {color:var(--green);text-underline-offset:.18em}
+a:focus-visible, summary:focus-visible {outline:2px solid var(--green);outline-offset:3px}
+.frame {width:min(100% - 64px,1080px);margin:auto}
+.mast {background:#122f2a;color:#f3f8f5}
+.mast .frame {min-height:56px;display:flex;align-items:center;gap:12px}
+.mark {display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid #85aa9c;border-radius:4px;color:#b5dfce}
+.mark svg {width:15px;height:15px}
+.version {color:#a9cbbe;font:11px ui-monospace,monospace}
+.mast time {margin-left:auto;color:#b8d1c6;font:12px ui-monospace,monospace}
+main {padding:26px 0 40px}
+.news,.section {background:var(--white);border:1px solid var(--line);border-radius:11px}
+.news {border-top:4px solid var(--green);padding:23px 26px 0}
+.kicker {color:var(--green);font-size:12px;font-weight:700}
+h1 {font:750 clamp(29px,4.35vw,44px)/1.19 var(--serif);letter-spacing:-.025em;margin:7px 0 10px;text-wrap:balance}
+.summary {max-width:70em;color:#405a53;font-size:15px}
+.impacts {display:grid;gap:6px;margin-top:12px;padding-left:11px;border-left:2px solid #83a99b;font-size:13px;color:#3c514d}
+.impacts strong {color:var(--green);margin-right:2px}
+.scores {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin:20px 0 15px;padding:0;list-style:none}
+.score {min-width:0;padding-top:8px;border-top:1px solid var(--line)}
+.score-head {display:flex;align-items:baseline;gap:5px;justify-content:space-between;font-size:14px;font-weight:650}
+.score strong {font:750 24px/1 var(--sans);color:var(--green);white-space:nowrap}
+.score small {font-size:12px;color:var(--muted)}
+.scale {display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;margin:7px 0 5px}
+.scale span {height:4px;border-radius:2px;background:var(--bar)}
+.scale .earned {background:#438873}
+.score p {color:var(--muted);font-size:13px}
+.admission {display:flex;align-items:center;flex-wrap:wrap;gap:2px 11px;border-top:1px solid #f1e0bd;
+  padding:10px 26px;background:var(--gold);margin:0 -26px;border-radius:0 0 10px 10px;color:var(--amber);font-size:13px}
+.admission.pass {border-color:#cfe3d7;background:var(--pale);color:var(--green)}
+.admission b {font-size:14px;white-space:nowrap}
+.admission .threshold {margin-left:auto}
+.section {margin-top:15px;padding:17px 22px}
+.section h2 {font-size:20px;line-height:1.35;margin-bottom:9px;letter-spacing:-.015em}
+.history {border-collapse:collapse;text-align:left;width:100%;font-size:13px;table-layout:fixed}
+.history th,.history td {padding:9px 10px 9px 0;vertical-align:top;border-top:1px solid var(--line)}
+.history thead th {color:var(--muted);font-size:12px;padding-block:5px}
+.history tbody th {font-weight:650}
+.history th:first-child {width:20%}
+.history th:nth-child(2) {width:25%}
+.history th:nth-child(3) {width:32%}
+.history time {display:block;font:11px ui-monospace,monospace;color:var(--muted);margin-bottom:3px}
+.history tr:last-child th,.history tr:last-child td {padding-bottom:0}
+.take {color:var(--green)}
+.stock {display:grid;grid-template-columns:minmax(142px,.7fr) minmax(0,1.55fr) minmax(0,1fr) minmax(0,1fr);
+  gap:7px 13px;padding:11px 0;border-top:1px solid var(--line);align-items:start;font-size:13px}
+.stock:last-of-type {padding-bottom:0}
+.stock h3 {font-size:15px;line-height:1.3}
+.code {display:block;color:var(--muted);font:11px/1.4 ui-monospace,monospace;margin-top:4px}
+.field b {display:block;font-size:11px;color:var(--muted);font-weight:650;margin-bottom:2px}
+.position {display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.tag {display:inline-block;background:var(--gold);color:var(--amber);border-radius:3px;padding:1px 5px;font-size:10px;line-height:1.5;margin:4px 4px 0 0}
+.company-lines {grid-column:2/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;color:#324945}
+.company-lines p {padding:5px 8px;background:#f2f7f3;border-left:2px solid #83a99b;font-size:12px}
+.company-lines .risk {background:#faf5eb;border-color:#c69b61}
+.company-lines b {color:var(--green);margin-right:3px;white-space:nowrap}
+.company-lines .risk b {color:var(--amber)}
+.note {margin-top:11px;padding-top:9px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+.refs {display:inline-flex;vertical-align:middle;gap:3px;flex-wrap:wrap;margin-left:4px}
+.refs a {text-decoration:none;padding:0 4px;background:var(--pale);border:1px solid #d0e1d8;
+  border-radius:3px;font:10px/1.4 ui-monospace,monospace;color:var(--green)}
+details.sources {margin:13px 0 0;font-size:13px}
+.print-only {display:none}
+.sources summary {font-weight:650;color:var(--green);cursor:pointer;padding:6px 0}
+.sources ul {list-style:none;padding:0;margin:0}
+.sources li {border-top:1px solid var(--line);padding:6px 0;scroll-margin-top:6px;overflow-wrap:anywhere}
+.sources li:target {background:var(--pale)}
+.sources li b {color:var(--green);margin-right:6px}
+.sources li p {color:var(--muted)}
+@media screen and (max-width:680px) {
+  .frame {width:calc(100% - 28px)}
+  main {padding:14px 0 25px}
+  .mast .frame {min-height:48px}
+  .news {padding:17px 15px 0}
+  h1 {font-size:30px}
+  .summary {font-size:14px}
+  .scores {gap:8px;margin:13px 0}
+  .score-head {display:block;font-size:12px;line-height:1.35}
+  .score strong {display:block;font-size:21px;margin-top:2px}
+  .score p {font-size:11px;line-height:1.45}
+  .admission {margin:0 -15px;padding:9px 15px}
+  .admission .threshold {margin-left:0}
+  .section {padding:13px 14px}
+  .history,.history tbody,.history tr {display:block}
+  .history thead {position:absolute;overflow:hidden;width:1px;height:1px;clip-path:inset(50%)}
+  .history tbody tr {border-top:1px solid var(--line);padding:7px 0}
+  .history tbody th,.history tbody td {width:100%;padding:2px 0;border:0;display:block}
+  .history tbody th[scope="row"] {display:flex;flex-wrap:wrap;gap:2px 8px;align-items:baseline;width:100%}
+  .history tbody th time {white-space:nowrap}
+  .history tbody td {display:grid;grid-template-columns:5.8em minmax(0,1fr);gap:5px}
+  .history tbody td::before {content:attr(data-label);color:var(--muted);font-size:11px}
+  .stock {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stock header,.stock .profile {grid-column:1/-1}
+  .company-lines {grid-column:1/-1;grid-template-columns:1fr;gap:4px}
+}
+@media print {
+  @page {size:A4 portrait;margin:8mm 9mm}
+  * {print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  .frame {width:100%;margin:0}
+  body {font-size:8.3pt;line-height:1.28}
+  main {padding:10pt 5pt 4pt}
+  .mast .frame {min-height:27pt;padding:0 5pt;gap:7pt}
+  .mark {width:14pt;height:14pt;border-radius:2pt}
+  .mark svg {width:10pt;height:10pt}
+  .version,.mast time {font-size:7pt}
+  .news,.section {border-radius:5pt}
+  .news {border-top-width:2pt;padding:11pt 12pt 0;break-inside:avoid}
+  .kicker {font-size:8.3pt}
+  h1 {font-size:18.5pt;line-height:1.24;margin:4pt 0 7pt}
+  .summary {max-width:none;font-size:9.3pt;line-height:1.52}
+  .impacts {gap:3pt;margin-top:7pt;padding-left:7pt;border-left-width:1pt;font-size:8.7pt;line-height:1.44}
+  .scores {gap:11pt;margin:10pt 0 9pt}
+  .score {padding-top:5pt}
+  .score-head {font-size:9pt}
+  .score strong {font-size:14pt}
+  .score small {font-size:7.8pt}
+  .score p {font-size:8.4pt;line-height:1.43}
+  .scale {margin:3.5pt 0 4pt;gap:2.5pt}
+  .scale span {height:2.5pt}
+  .admission {padding:5pt 12pt;margin:0 -12pt;border-radius:0 0 4pt 4pt;font-size:8.5pt}
+  .admission b {font-size:9pt}
+  .section {margin-top:5pt;padding:5pt 7pt}
+  .section h2 {font-size:10pt;margin-bottom:3pt;break-after:avoid}
+  .section[aria-labelledby="history-title"] {margin-top:11pt;padding:9pt 11pt 10pt}
+  .section[aria-labelledby="history-title"] h2 {font-size:11.7pt;margin-bottom:6pt}
+  .section[aria-labelledby="stocks-title"] {break-before:page;break-inside:avoid}
+  .history {font-size:8.6pt;line-height:1.44}
+  .history th,.history td {padding:5pt 5pt 5pt 0}
+  .history thead th {font-size:8pt;padding-block:3pt}
+  .history time {font-size:7.3pt;margin-bottom:2pt}
+  .stock {grid-template-columns:minmax(0,.65fr) minmax(0,1.55fr) minmax(0,1fr) minmax(0,1fr);
+    gap:2pt 6pt;padding:3pt 0;font-size:7.7pt}
+  .stock h3 {font-size:9pt}
+  .code {font-size:6.9pt;margin-top:1pt}
+  .field b {font-size:7.05pt;margin-bottom:1pt}
+  .position {font-size:7.2pt;margin-top:1pt}
+  .tag {padding:0 2pt;font-size:6.6pt;margin:1pt 1pt 0 0}
+  .company-lines {gap:4pt}
+  .company-lines p {padding:1.5pt 3pt;border-left-width:1pt;font-size:7.45pt;line-height:1.25}
+  .company-lines b {margin-right:2pt}
+  .note {font-size:7.4pt;margin-top:3pt;padding-top:2pt}
+  .refs,.sources {display:none}
+  .print-only {display:block;color:var(--muted);font-size:6.9pt;margin-top:3pt}
+  .stock,tr,li {break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<header class="mast"><div class="frame">
+  <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 17h4l4-8 4 5 5-8"/><path d="M15 6h5v5"/></svg></span>
+  <strong>产业信息卡</strong><span class="version">V3.0</span>
+  <time datetime="{{DATE}}">{{DATE}} · 北京时间</time>
+</div></header>
+<main class="frame">
+<header class="news">
+  <p class="kicker">新信息概述</p>
+  <h1>{{HEADLINE}}</h1>
+  <p class="summary">{{SUMMARY}}</p>
+  {{IMPACTS}}
+  {{SCORES}}
+</header>
+{{HISTORY}}
+{{STOCKS}}
+{{SOURCES}}
+<p class="print-only">原文及历史行情出处见同名 HTML。</p>
+</main>
+<script>
+document.querySelectorAll('.refs a').forEach(link => link.addEventListener('click', () => {
+  const target = document.getElementById(link.hash.slice(1));
+  const details = target?.closest('details');
+  if (details) details.open = true;
+}));
+const linkedSource = document.getElementById(location.hash.slice(1))?.closest('details');
+if (linkedSource) linkedSource.open = true;
+</script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "name": "industry-exposure-card",
+  "display_name": "产业信息卡",
+  "version": "3.0.0",
+  "entrypoint": "SKILL.md",
+  "language": "zh-CN",
+  "timezone": "Asia/Shanghai",
+  "description": "新信息概述、三维准入、历史可比事件和 A 股敞口的单页信息卡，支持 A4 打印副本。",
+  "run_mode": "on_demand",
+  "files": {
+    "skill": "SKILL.md",
+    "skeleton": "assets/card-template.html",
+    "renderer": "scripts/render_card.py",
+    "printer": "scripts/print_card.mjs"
+  }
+}

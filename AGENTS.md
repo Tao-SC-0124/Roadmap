@@ -1,66 +1,71 @@
-# AGENTS.md · 新 Agent 入口
+# AGENTS.md · 产业信息卡工作区（V3.0 默认）
 
-本目录是产业信息卡统一工作区。**新会话先读 `README.md`，再读本文件。** `README.md` 是完整总说明；本文件是执行前的最低对齐。
+默认执行 **V3.0**：`skill/SKILL.md`。V2.3 是独立包：`skill/v2.3/SKILL.md`。两套规则不混用。
 
 ## 先读顺序
 
+**默认 V3.0：**
+
 1. `README.md`
 2. `skill/SKILL.md`
-3. `skill/references/screening-and-resonance.md`
-4. `skill/references/preflight-checklist.md`
-5. `skill/references/scoring-and-timeline.md`
+3. `skill/references/research-paths.md`
+4. `skill/references/html.md`
+5. `skill/references/printing.md`
+6. `信息卡/Version3.0/README.md` 与样卡
+
+**只有用户明确要求 V2.3 时：**
+
+1. `skill/v2.3/SKILL.md`
+2. `skill/v2.3/references/daily-push.md`
+3. `skill/v2.3/references/screening-and-resonance.md`
+4. `skill/v2.3/references/preflight-checklist.md`
+5. `skill/v2.3/references/scoring-and-timeline.md`
 6. `信息卡/Version2.3/信息卡-Version2.3-执行规范.md`
-7. `config.yaml`
 
 ## 当前状态
 
-- 业务规范：Version2.3
-- Agent skill：v2.3.0
-- 模式：`daily_push` 按需推卡；不设固定时间，用户要求时跑，每次最多 1 张
-- 正式 HTML：`正式卡/YYYYMMDD/`（本地，不进 git）
-- 打印 PDF：`待打印PDF/YYYYMMDD/`（临时，打印后可删）
-- PDF 引擎：`报告评审记录/scripts/convert-any.sh`
-- git 远端：`git@github.com:Tao-SC-0124/Roadmap.git`；本地文件夹叫 `产业信息卡skill`
+- 默认包：V3.0，入口 `skill/SKILL.md`，可上传 zip 在 `dist/industry-exposure-card-skill-v3.0.0.zip`
+- 独立包：V2.3，入口 `skill/v2.3/SKILL.md`，可上传 zip 在 `dist/industry-exposure-card-skill-v2.3.0.zip`
+- 正式 HTML：`正式卡/YYYYMMDD/`
+- 打印 PDF：`待打印PDF/YYYYMMDD/`
+- V3.0 样板：`信息卡/Version3.0/产业信息卡-V3.0.html`、`信息卡/Version3.0/产业信息卡-V3.0-打印版.pdf`
+- git 远端：`git@github.com:Tao-SC-0124/Roadmap.git`；本地文件夹名 `产业信息卡skill`
 
 ## 用户说“跑一张卡”时
 
-1. 先看日期目录：`正式卡/YYYYMMDD/`；若用户已建 `正式卡/YYYY-MM-DD/` 也直接用；都没有则创建 `YYYYMMDD/`。
-2. 读今日已有产物与 `报告评审记录/.state/pushed-index.json`；同日重复请求不重复同一敞口/主标的。
-3. 60/120/250 交易日跌幅榜 → 绝对跌幅＋最大回撤＋相对基准跌幅 → 下跌原因 → 90 天 S/A 节点 → 共振。
-4. 纯度、五关/C、B 锚点、准入三条。
-5. 合格才出卡；不合格就如实说“本轮全市场未检索到符合准入的产业敞口”，不降标准。
-6. HTML 写 `正式卡/YYYYMMDD/`；push/run 按请求时间命名；更新索引。
-7. 用户说“顺便转 PDF”才运行 `--formal`。
+1. 先判断用户有没有明确说 V2.3。没有就按 V3.0。
+2. V3.0：找一条有实质增量的新信息 → 写新闻与影响方向 → 三维评分（预期差/影响规模/利润传导，每项 ≥3、合计 ≥11）→ 历史对照 → 列公司的共振敞口、并行敞口、一句话路演与风险 → 生成 HTML。
+3. V2.3：按 `skill/v2.3/SKILL.md` 的跌幅榜×S/A 节点×B+C 流程执行，不套用 V3.0 三维分。
+4. 正式 HTML 写 `正式卡/YYYYMMDD/`；用户要求打印时才转 PDF。
 
 ## 不可违反
 
-- 准入三条：未确认杀逻辑、B≥3、C≥3、B＋C≥7。
-- B 锚点：1.5×／120日／±1%／同一位置≥1次有效测试／取价A；1次标「1次测试」，2次以上标「多次测试」，不因次数改B档。
-- MA5/MA10 不是门槛，只作行情事实。
-- C 不映射概率；无先验/胜率/贝叶斯。
-- daily_push 无 S/A 节点、确认杀逻辑、无跌幅榜来源，不出卡。
+- **V3.0**：三维分每项 ≥3 且合计 ≥11 才准入；未过线写「未准入」与具体缺口；不把 V2.3 的 B+C 准入套到 V3.0。
+- **V2.3**：准入三条（未确认杀逻辑、B≥3、C≥3、B＋C≥7）；daily_push 必须有跌幅榜来源＋90 天 S/A 节点；无 S/A 不推。
 - 不编数据；取不到写「未取得」。
-- 不读外部金融日历仓库。
-- 卡片不出免责声明；页脚只留规定文案。
+- 不读任何外部金融日历仓库。
+- 卡片不出免责声明；来源与评级按各自 SKILL。
 - 不擅自改规则、升版本、commit 或 push；用户明确要求才做。
 
 ## 输出与命令
 
 ```sh
-# 按需跑卡：由用户在对话中要求，Agent 执行 SKILL 流程
-# 正式卡 → PDF
+# V3.0：JSON → HTML
+python3 skill/scripts/render_card.py 信息卡/Version3.0/案例数据.json 正式卡/YYYYMMDD/产业信息卡.html
+
+# V3.0：HTML → A4 PDF
+node skill/scripts/print_card.mjs 正式卡/YYYYMMDD/产业信息卡.html --out-dir 待打印PDF/YYYYMMDD
+
+# V2.3：结构校验
+python3 skill/v2.3/scripts/validate_card.py "正式卡/YYYYMMDD/某卡.html" --daily
+
+# 两种卡统一转 PDF
 bash 报告评审记录/scripts/convert-any.sh --formal YYYYMMDD
-
-# 全部正式卡
-bash 报告评审记录/scripts/convert-any.sh --formal
-
-# 校验
-python3 skill/scripts/validate_card.py "正式卡/YYYYMMDD/某卡.html"
 ```
 
 ## 不要做
 
+- 不要把 V3.0 与 V2.3 的模板、references、脚本混用。
 - 不要把 PDF 放进 `正式卡/`，不要把 HTML 放进 `待打印PDF/`。
 - 不要提交 `正式卡/`、`待打印PDF/`、`research/`、`dist/*.zip`、`_archive/`、`报告评审记录/` 的日期目录/PDF/HTML。
-- 不要覆盖 `信息卡/Version2.3/`；升版本新建 `VersionX.Y/`。
-- 不要只看涨幅榜选股；不要用行业分类当同敞口依据。
+- 不要覆盖 `信息卡/Version3.0/` 或 `信息卡/Version2.3/`；升版本新建 `VersionX.Y/`。

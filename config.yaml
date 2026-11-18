@@ -5,6 +5,9 @@ timezone: Asia/Shanghai
 # 按需推卡：不设固定时间；用户请求时跑一张，最多 1 张
 run_mode: on_demand
 cards_per_run: 1
+# 默认 V3.0；用户明确要求 V2.3 时才切到 skill/v2.3/
+default_skill: v3
+legacy_skill_dir: skill/v2.3
 # 用户已 init 日期目录则直接用；没有则自动创建 正式卡/YYYYMMDD/
 auto_create_date_folder: true
 take_pass_prompt: true
@@ -40,7 +43,7 @@ pdf_converter: 报告评审记录/scripts/convert-any.sh
 research_dir: research
 
 language: zh-CN
-spec_version: v2.3
-card_theme: v2.2
+spec_version: v3.0
+card_theme: v3.0
 emit_png: false
 max_pages: 6

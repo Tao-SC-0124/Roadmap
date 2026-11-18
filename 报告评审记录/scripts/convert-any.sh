@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # 统一 PDF 入口：
-#   convert-any.sh <file.html>                   自动识别 V2.2 卡 / 通用 HTML
+#   convert-any.sh <file.html>                   自动识别 V3.0 / V2.2/V2.3 卡 / 通用 HTML
 #   convert-any.sh --dir <YYYYMMDD>              转换该日期目录下全部 HTML
 #   convert-any.sh --inbox                       转换 inbox/ 下全部 HTML，输出到 outbox/
 #   convert-any.sh --formal [YYYYMMDD]           正式卡/日期/ → 待打印PDF/日期/（推荐）
-# V2.2 卡走六页流程；其他 HTML 走通用 A4 流程。
+# V3.0 走紧凑 A4 流程。旧产业卡和通用 HTML 按原版式处理。
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -14,6 +14,7 @@ FORMAL_DIR="$WORKSPACE_DIR/正式卡"
 PDF_DIR="$WORKSPACE_DIR/待打印PDF"
 CARD="$SCRIPT_DIR/html-report-to-pdf.mjs"
 GENERIC="$SCRIPT_DIR/convert-generic.mjs"
+V3="$WORKSPACE_DIR/skill/scripts/print_card.mjs"
 
 is_card() {
   local f="$1"
@@ -26,7 +27,9 @@ is_card() {
 convert_one() {
   local f="$1"; local out="${2:-}"
   if [ ! -f "$f" ]; then echo "跳过（不存在）：$f" >&2; return 0; fi
-  if is_card "$f"; then
+  if grep -Fq '<meta name="industry-card-version" content="3.0">' "$f"; then
+    if [ -n "$out" ]; then node "$V3" "$f" --out-dir "$out"; else node "$V3" "$f"; fi
+  elif is_card "$f"; then
     if [ -n "$out" ]; then node "$CARD" "$f" --out-dir "$out"; else node "$CARD" "$f"; fi
   else
     if [ -n "$out" ]; then node "$GENERIC" "$f" --out-dir "$out"; else node "$GENERIC" "$f"; fi

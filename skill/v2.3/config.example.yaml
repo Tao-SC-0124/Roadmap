@@ -47,7 +47,7 @@ pdf_output_dir: outputs/pdf
 date_folder_format: YYYY-MM-DD
 state_dir: outputs/state
 # 本工作区在根目录 config.yaml 覆盖为：
-# output_dir: 报告评审记录
+# output_dir: 正式卡
 # date_folder_format: YYYYMMDD
 # state_dir: 报告评审记录/.state
 # pdf_converter: 报告评审记录/scripts/convert-any.sh

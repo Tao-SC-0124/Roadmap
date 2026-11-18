@@ -1,0 +1,396 @@
+{
+  "date": "2026-11-18",
+  "headline": "美国商务部公布境外大规模远程先进算力许可新规",
+  "summary": "面向总部或最终母公司位于 D:5（含中国）或澳门的企业，单个或相联数据中心远程提供超过 1,200 万合计 TPP 时，相关受控芯片、设备的出口、再出口或境内转移须获许可。规则已公示，预定美国当地 11 月 19 日刊登并生效。",
+  "newsRefs": [
+    "P1"
+  ],
+  "scores": {
+    "expectation": {
+      "value": 3,
+      "reason": "远程管制方向已有公开信号。本次新增绝对门槛和相联数据中心口径。",
+      "refs": [
+        "P1",
+        "P5"
+      ]
+    },
+    "scale": {
+      "value": 2,
+      "reason": "阈值和对象已明确，实际受覆盖合同规模与算力用量未取得。",
+      "refs": [
+        "P1"
+      ]
+    },
+    "transmission": {
+      "value": 2,
+      "reason": "境外访问受限可能改变采购去向，客户实际迁移与国内新增订单未证。",
+      "refs": [
+        "P1"
+      ]
+    }
+  },
+  "history": [
+    {
+      "date": "2018-04-16",
+      "title": "美国激活中兴拒绝令",
+      "mechanism": "限制与指定企业相关的受 EAR 管辖物项、软件及技术交易。",
+      "market": "4 月 18 日国民技术、富瀚微、北方华创涨停。",
+      "lesson": "市场同时交易芯片设计与设备替代，两条线都需匹配具体受限业务。",
+      "mechanismRefs": [
+        "H1"
+      ],
+      "refs": [
+        "M1",
+        "M2"
+      ]
+    },
+    {
+      "date": "2019-05-16",
+      "title": "华为被列入实体清单",
+      "mechanism": "向华为及 68 家非美关联实体供应受控物项新增许可。",
+      "market": "5 月 17 日北京君正、华天科技、诚迈科技涨停。5 月 20 日长电科技、华天科技、富瀚微涨停。中微公司 7 月才上市。",
+      "lesson": "封测也可以成为当日方向，买方及供应链位置决定敞口。",
+      "mechanismRefs": [
+        "H2"
+      ],
+      "refs": [
+        "M3",
+        "M4",
+        "H3"
+      ]
+    },
+    {
+      "date": "2022-10-07",
+      "title": "美国限制先进计算与芯片制造",
+      "mechanism": "同一批规则覆盖先进计算芯片，以及特定制造物项和用途。",
+      "market": "10 月 10、11 日北方华创连续跌停，10 月 12 日板块反弹时龙芯中科收涨 16.82%。",
+      "lesson": "设备和芯片两条线走势可反向。首轮反应与反弹分开看。",
+      "mechanismRefs": [
+        "H4"
+      ],
+      "refs": [
+        "M5",
+        "M6"
+      ]
+    },
+    {
+      "date": "2023-03-31 / 05-23",
+      "title": "日本管制 23 项半导体设备",
+      "mechanism": "3 月 31 日征求意见，5 月 23 日正式发布，直接限制制造工具。",
+      "market": "草案后 4 月 3 日中微盘中涨超 10%。正式发布后 5 月 24 日容大感光收涨停，中芯国际 A 股盘中曾跌 5.86%。",
+      "lesson": "工具供给受限时，材料股与晶圆厂的股价反应可相反，材料订单仍要另证。",
+      "mechanismRefs": [
+        "H5"
+      ],
+      "refs": [
+        "M7",
+        "M8",
+        "M9"
+      ]
+    },
+    {
+      "date": "2023-10-17",
+      "title": "美国升级先进计算出口限制",
+      "mechanism": "收紧先进计算物项及海外供货路径。本次新增针对大规模远程算力使用的许可门槛。",
+      "market": "10 月 18 日海光信息收涨 5.65%、寒武纪收涨 4.10%，浪潮信息跌停。",
+      "lesson": "最接近本次算力可得性冲击。优先排查训练替代，整机仍须单独核对。",
+      "mechanismRefs": [
+        "P3",
+        "P4",
+        "P1"
+      ],
+      "refs": [
+        "M10"
+      ]
+    }
+  ],
+  "stocks": [
+    {
+      "name": "海光信息",
+      "code": "688041",
+      "business": "服务器 CPU、数据中心 DCU。",
+      "position": "国产服务器处理器与加速器供应商。",
+      "resonant": "DCU 承接国内训练和推理。",
+      "parallel": "服务器 CPU、信创。",
+      "refs": [
+        "C2"
+      ],
+      "pitch": "真有训练任务迁回，我的 DCU 已能做大模型，服务器 CPU 也是现成业务。",
+      "risk": "要是 DCU 没拿到新增单，你押的算力增长就只能靠原有业务撑。"
+    },
+    {
+      "name": "寒武纪",
+      "code": "688256",
+      "business": "云端 AI 芯片、板卡与软件栈。",
+      "position": "云端训练与推理芯片设计商。",
+      "resonant": "云端训练芯片适配。",
+      "parallel": "边缘 AI、云端推理。",
+      "refs": [
+        "C1"
+      ],
+      "pitch": "你押的是云端训练，我有自己的 AI 芯片和软件栈，客户能整套试。",
+      "risk": "要是换到我的平台要重做太多适配，客户宁可延期，我就接不到单。"
+    },
+    {
+      "name": "沐曦股份",
+      "code": "688802",
+      "business": "数据中心 GPU 与软件栈。",
+      "position": "公司披露已有千卡集群商业部署。",
+      "resonant": "GPU 训练集群适配。",
+      "parallel": "AI 推理。",
+      "refs": [
+        "C3"
+      ],
+      "pitch": "客户要的是整组 GPU 一起跑，我已经有千卡集群的商用部署。",
+      "risk": "要是下一批大集群交付跟不上，客户就可能把采购分给别人。"
+    },
+    {
+      "name": "北方华创",
+      "code": "002371",
+      "business": "刻蚀、薄膜沉积和热处理设备。",
+      "position": "国内多工艺平台型设备供应商。",
+      "resonant": "需要传导至晶圆厂新增设备招标。",
+      "parallel": "存储扩产、先进封装、真空新能源装备。",
+      "refs": [
+        "C6"
+      ],
+      "pitch": "晶圆厂真加预算，我能同时争取刻蚀、沉积和热处理几笔订单。",
+      "risk": "芯片多卖了但晶圆厂没扩产，你等的设备大单就不会来。"
+    },
+    {
+      "name": "中微公司",
+      "code": "688012",
+      "business": "刻蚀、薄膜沉积及 MOCVD 设备。",
+      "position": "国内前道刻蚀设备供应商。",
+      "resonant": "需要传导至晶圆厂新增刻蚀采购。",
+      "parallel": "存储资本开支、LED 外延设备。",
+      "refs": [
+        "C7"
+      ],
+      "pitch": "厂里真要为新产能添刻蚀机，我就是可以直接比较的那一类供应商。",
+      "risk": "如果扩产的钱先花在别的工序，晶圆厂开工也未必轮到我。"
+    },
+    {
+      "name": "容大感光",
+      "code": "300576",
+      "business": "PCB、显示及半导体光刻胶。",
+      "position": "PCB 光刻胶为报告期主要披露产品。",
+      "resonant": "需确认增量产线及具体胶种。",
+      "parallel": "PCB 与显示景气。",
+      "refs": [
+        "C8"
+      ],
+      "pitch": "你要看光刻胶，我有成规模的 PCB 胶业务，也有半导体胶产品。",
+      "risk": "如果新产线用不到我的胶，半导体题材热也撑不起我的新增收入。"
+    },
+    {
+      "name": "长电科技",
+      "code": "600584",
+      "business": "集成电路封装测试，高性能封装。",
+      "position": "具备先进封装量产能力。",
+      "resonant": "需确认国产训练芯片的新增封测订单。",
+      "parallel": "存储、车规和端侧封装。",
+      "refs": [
+        "C10"
+      ],
+      "pitch": "训练芯片真多做一批，到了高性能封装这一步，我有量产能力。",
+      "risk": "要是新增的芯片没选我的封装工艺，行业量上去了也进不了我的账。"
+    },
+    {
+      "name": "龙芯中科",
+      "code": "688047",
+      "business": "LoongArch 通用 CPU 与配套解决方案。",
+      "position": "自主指令集通用处理器供应商。",
+      "resonant": "历史反弹参照，训练加速承接无证据。",
+      "parallel": "信创、工业控制。",
+      "refs": [
+        "C9"
+      ],
+      "pitch": "你要看国产通用处理器，我有自己的指令集，做的是不一样的 CPU。",
+      "risk": "要是因为训练芯片缺货才买我，通用 CPU 的订单兑现不了那笔预期。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "P1",
+      "title": "联邦公报公示稿 2026-23529",
+      "detail": "2026-11-16 16:15 美国东部时间登记，北京时间 11-17 05:15。见 DATES、Savings Clause、§744.24 及 §742.6。预定 11-19 刊登并于刊登日生效。",
+      "url": "https://public-inspection.federalregister.gov/2026-23529.pdf"
+    },
+    {
+      "id": "P3",
+      "title": "BIS 2023 先进计算临时最终规则",
+      "detail": "88 FR 73458（2023-10-25）。参照 §742.6 和关于第三国路径及远程使用的说明。",
+      "url": "https://public-inspection.federalregister.gov/2023-23055.pdf"
+    },
+    {
+      "id": "P4",
+      "title": "BIS 2026-05-31 执法指引",
+      "detail": "解释已有先进计算物项、相关总部与海外路径的规则背景。",
+      "url": "https://www.bis.gov/media/documents/bis-guidance-may-31-2026.pdf"
+    },
+    {
+      "id": "P5",
+      "title": "美国众议院远程访问法案表决",
+      "detail": "2026-01-12 通过 H.R.2683。仅作为事前公开信号。",
+      "url": "https://clerk.house.gov/Votes/202613/"
+    },
+    {
+      "id": "C1",
+      "title": "寒武纪 2026 半年报",
+      "detail": "见管理层讨论与分析。云端训练及推理属披露的产品用途。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-08/1225464969.PDF"
+    },
+    {
+      "id": "C2",
+      "title": "海光信息 2026 半年报",
+      "detail": "见 CPU、DCU 产品及大模型训练与推理适用场景。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-14/1225472510.PDF"
+    },
+    {
+      "id": "C3",
+      "title": "沐曦股份 2026 半年报",
+      "detail": "第 13 页披露千卡集群商业部署和大模型适配。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-31/1225535168.PDF"
+    },
+    {
+      "id": "H1",
+      "title": "BIS 激活中兴拒绝令",
+      "detail": "2018-04-16 宣布，联邦公报案卷 2018-08354。",
+      "url": "https://www.govinfo.gov/content/pkg/FR-2018-04-23/pdf/2018-08354.pdf"
+    },
+    {
+      "id": "M1",
+      "title": "2018-04-18 当日盘面（每日经济新闻）",
+      "detail": "当日下午芯片股异动，含国民技术与富瀚微。",
+      "url": "https://www.nbd.com.cn/rss/toutiao/articles/1209437"
+    },
+    {
+      "id": "M2",
+      "title": "2018-04-18 芯片股收盘记录（澎湃）",
+      "detail": "当日北方华创、国民技术、富瀚微等收涨停。",
+      "url": "https://finance.sina.com.cn/roll/2018-04-19/doc-ifyuwqfa4400320.shtml"
+    },
+    {
+      "id": "H2",
+      "title": "BIS 将华为及关联实体列入实体清单",
+      "detail": "2019-05-16 生效，84 FR 22961。",
+      "url": "https://www.govinfo.gov/content/pkg/FR-2019-05-21/pdf/2019-10616.pdf"
+    },
+    {
+      "id": "M3",
+      "title": "2019-05-17 华为产业链盘面（财新）",
+      "detail": "北京君正、华天科技、诚迈科技涨停。",
+      "url": "https://companies.caixin.com/2019-05-17/101417064.html"
+    },
+    {
+      "id": "M4",
+      "title": "2019-05-20 A 股收盘（联合早报）",
+      "detail": "长电科技、华天科技、富瀚微等涨停。",
+      "url": "https://www.zaobao.com.sg/realtime/china/story20190520-958036"
+    },
+    {
+      "id": "H3",
+      "title": "上交所中微公司上市公告",
+      "detail": "2019-07-22 在科创板上市。",
+      "url": "https://www.sse.com.cn/disclosure/announcement/listing/ipo/c/c_20190719_75376151.shtml"
+    },
+    {
+      "id": "H4",
+      "title": "BIS 2022 年先进计算和制造管制",
+      "detail": "2022-10-07 发布，87 FR 62186。",
+      "url": "https://www.govinfo.gov/app/details/FR-2022-10-13/2022-21658"
+    },
+    {
+      "id": "M5",
+      "title": "北方华创连续跌停（财新，2022-10-11）",
+      "detail": "10-10、10-11 连续两日跌停。同期公司还披露子公司被列入未经核实名单。",
+      "url": "https://companies.caixin.com/2022-10-11/101950487.html"
+    },
+    {
+      "id": "M6",
+      "title": "2022-10-12 半导体反弹（证券时报）",
+      "detail": "龙芯中科收涨 16.82%。",
+      "url": "https://www.stcn.com/article/detail/699152.html"
+    },
+    {
+      "id": "H5",
+      "title": "日本经产省 23 项半导体制造设备管制",
+      "detail": "3 月 31 日公开征求意见，5 月 23 日公布省令，7 月 23 日施行。",
+      "url": "https://www.meti.go.jp/policy/economy/chizai/chiteki/pdf/forum/reiwa5/10_230628_METI.pdf"
+    },
+    {
+      "id": "M7",
+      "title": "2023-04-03 日内半导体盘面（证券时报）",
+      "detail": "草案窗口中微公司盘中涨超 10%。",
+      "url": "https://www.stcn.com/article/detail/832295.html"
+    },
+    {
+      "id": "M8",
+      "title": "2023-05-24 收盘（证券时报）",
+      "detail": "容大感光涨停。",
+      "url": "https://www.stcn.com/article/detail/873904.html"
+    },
+    {
+      "id": "M9",
+      "title": "2023-05-24 中芯国际 A 股盘中（证券时报）",
+      "detail": "10:38 截面下跌 5.86%，非当日收盘涨跌。",
+      "url": "https://www.stcn.com/article/detail/873653.html"
+    },
+    {
+      "id": "M10",
+      "title": "2023-10-18 先进计算股收盘（经济观察报）",
+      "detail": "海光信息 +5.65%，寒武纪 +4.10%，浪潮信息跌停。同日亦有其他行业因素。",
+      "url": "https://www.eeo.com.cn/2023/1019/609380.shtml"
+    },
+    {
+      "id": "C6",
+      "title": "北方华创 2026 半年报",
+      "detail": "管理层讨论与分析。刻蚀、薄膜沉积、热处理与新能源装备等。",
+      "url": "https://disc.static.szse.cn/download/disc/disk03/finalpage/2026-08-26/5b947dae-f3ad-4009-8874-248e9abff0fd.PDF"
+    },
+    {
+      "id": "C7",
+      "title": "中微公司 2026 半年报",
+      "detail": "报告正文镜像。刻蚀、薄膜沉积和 MOCVD 相关业务。",
+      "url": "https://vip.stock.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12505778&stockid=688012"
+    },
+    {
+      "id": "C8",
+      "title": "容大感光 2026 半年报",
+      "detail": "报告正文镜像。分产品表单列 PCB 光刻胶，另披露半导体与显示光刻胶。",
+      "url": "https://money.finance.sina.com.cn/corp/view/vCB_AllBulletinDetail.php?id=12536632&stockid=300576"
+    },
+    {
+      "id": "C9",
+      "title": "龙芯中科 2026 半年报",
+      "detail": "当期业务包括 LoongArch 通用 CPU、工控等。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-29/1225524354.PDF"
+    },
+    {
+      "id": "C10",
+      "title": "长电科技 2026 半年报",
+      "detail": "相关封装工艺及业务领域见管理层讨论与分析。",
+      "url": "https://static.cninfo.com.cn/finalpage/2026-08-21/1225487900.PDF"
+    }
+  ],
+  "impacts": [
+    {
+      "label": "偏多线索",
+      "text": "受限客户若迁回仍需完成的训练任务，已有适配能力的国产加速芯片才有机会拿到新增单。",
+      "refs": [
+        "P1",
+        "C1",
+        "C2",
+        "C3"
+      ]
+    },
+    {
+      "label": "承压线索",
+      "text": "依赖受控硬件或海外算力的项目面临许可约束；若服务获准延续或客户推迟训练，国产采购增量也会落空。",
+      "refs": [
+        "P1"
+      ]
+    }
+  ]
+}

@@ -30,3 +30,5 @@ outputs/
 # skill 运行输出
 skill/outputs/*
 !skill/outputs/.gitkeep
+skill/v2.3/outputs/*
+!skill/v2.3/outputs/.gitkeep

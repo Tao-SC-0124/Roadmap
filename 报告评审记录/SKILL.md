@@ -1,11 +1,11 @@
 ---
 name: research-card-print
-description: 将本工作区V2.2／V2.3产业信息卡HTML转换成保留原卡图形、配色和正文的A4可打印PDF，每份最多6页；其他单文件HTML走通用A4流程。用于首次报告评审的打印准备，不进行投资裁决或改写研究结论。
+description: 将本工作区V3.0产业信息卡（优先两页）及V2.2／V2.3产业信息卡（每份最多6页）转换成保留原卡图形、配色和正文的A4可打印PDF；其他单文件HTML走通用A4流程。用于首次报告评审的打印准备，不进行投资裁决或改写研究结论。
 ---
 
 # 研究报告HTML转打印PDF
 
-这是“报告评审记录”目录的可复用入口，支持V2.2／V2.3类单文件信息卡（同一骨架）。收到“把今天报告转成PDF”等请求时，先找指定日期目录，读取标题识别公司，按此说明执行。
+这是“报告评审记录”目录的可复用入口，支持V3.0两页事件卡、V2.2／V2.3六页产业卡（同一骨架）和通用单文件HTML。收到“把今天报告转成PDF”等请求时，先找指定日期目录，读取标题识别公司，按此说明执行。
 
 ## 用户已验收的标准
 
@@ -22,7 +22,7 @@ description: 将本工作区V2.2／V2.3产业信息卡HTML转换成保留原卡�
 - 本目录是 `产业信息卡skill/` 的打印评审区，不是独立文件夹。
 - daily push 的 HTML 写在 `../正式卡/YYYYMMDD/`；转换后的 PDF 写 `../待打印PDF/YYYYMMDD/`；推送文本与运行底稿可留在 `../正式卡/YYYYMMDD/` 或本目录。
 - `inbox/` 放其他研究员的单文件 HTML；`outbox/` 放通用 HTML 转出的 PDF。
-- 统一入口：`scripts/convert-any.sh`。它会自动识别 V2.2／V2.3 卡（六页流程）和普通 HTML（通用 A4 流程）。
+- 统一入口：`scripts/convert-any.sh`。它会自动识别 V3.0 卡（优先两页流程）、V2.2／V2.3 卡（六页流程）和普通 HTML（通用 A4 流程）。
 
 ```sh
 # 正式卡 → 待打印PDF（推荐）
@@ -31,7 +31,7 @@ bash scripts/convert-any.sh --formal YYYYMMDD
 # 全部正式卡
 bash scripts/convert-any.sh --formal
 
-# 单张 V2.2／V2.3 卡或普通 HTML
+# 单张 V3.0、V2.2／V2.3 卡或普通 HTML
 bash scripts/convert-any.sh path/to/report.html
 
 # 其他研究员的 HTML（inbox → outbox）

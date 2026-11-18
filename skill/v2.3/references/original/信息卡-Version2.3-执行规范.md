@@ -113,7 +113,7 @@ description: 围绕明确产业敞口研究A股公司，统一估计敞口纯度
 - **跌幅读数**：03第一列或06证据写`60/120/250交易日：绝对−x%／−y%／−z%；相对行业或沪深300 −x%／−y%／−z%；区间最大回撤−w%`；不足写「不存在」，不得只写“跌幅较大”。
 - **出货窗口**：首屏或01写`YYYY-MM-DD（S/A级节点名称）；谁付钱：…；哪个数字变好：…；节点后更高价的理由：…`。
 
-执行细则、无合格文案、S/A/B/C分级表见 [screening-and-resonance.md](../../skill/references/screening-and-resonance.md)；本规范只保留原则，§12.6做验收。
+执行细则、无合格文案、S/A/B/C分级表见 [screening-and-resonance.md](../screening-and-resonance.md)；本规范只保留原则，§12.6做验收。
 
 ## 3. 纯度：必须可比，允许有依据的推测
 
